@@ -12,6 +12,7 @@ import {loadUsers} from './actions/userActions';
 
 import '../node_modules/bootstrap/scss/bootstrap.scss';
 import '../node_modules/font-awesome/scss/font-awesome.scss';
+import './styles/app.scss';
 
 const store = configureStore();
 store.dispatch(loadUsers());

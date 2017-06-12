@@ -3,7 +3,8 @@ import { IndexLink, Link } from 'react-router';
 
 function Navigation() {
     return (
-            <ul className="nav nav-justified">
+        <div>
+            <ul className="nav bg-faded nav-justified fixed-top">
                 <li className="nav-item">
                     <IndexLink to="/" className="nav-link" activeClassName="active"><i className="fa fa-home fa-2x" /></IndexLink>
                 </li>
@@ -14,6 +15,7 @@ function Navigation() {
                     <Link to="/users" className="nav-link" activeClassName="active"><i className="fa fa-cog fa-2x" /></Link>
                 </li>
             </ul>
+        </div>
     );
 }
 
