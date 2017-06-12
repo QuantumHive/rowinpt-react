@@ -1,6 +1,6 @@
 # Rowin Personal Trainer WebApp
 Web application built with [Facebook/React](https://facebook.github.io/react/) and [Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/).  
-RowinPT is a Dutch gym. This project is a companion app for it's users.
+[RowinPT](http://www.rowinpt.com/) is a Dutch gym. This project is a companion app for it's users.
 # Versioning
 | **Versions** | **Features** |
 |--------------|--------------|
