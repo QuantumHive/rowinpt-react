@@ -1,5 +1,5 @@
 import userApi from '../api/userApi';
-import * as type from '../constants/actionTypes';
+import * as type from '../constants/userTypes';
 
 export function loadUsersSuccess(users){
     return {
@@ -8,19 +8,6 @@ export function loadUsersSuccess(users){
     };
 }
 
-export function loadUserSuccess(user){
-    return {
-        type: type.GET_USER,
-        user
-    };
-}
-
 export function loadUsers(){
     return dispatch => userApi.getAllUsers().then(users => dispatch(loadUsersSuccess(users)));
-}
-
-export function getUserById(id){
-    return function(dispatch){
-        return userApi.getUserById(id).then(user => dispatch(loadUserSuccess(user)));
-    };
 }

@@ -6,16 +6,15 @@ import * as actions from '../actions/userActions';
 import UserTable from '../components/users/UserTable';
 
 class Users extends React.Component {
-    constructor() {
-        super();
-        this.actions.loadUsers();
+    constructor(props) {
+        super(props);
+        props.actions.loadUsers();
     }
 
     render() {
-        const { users } = this.props;
         return (
             <div>
-                <UserTable users={users} />
+                <UserTable users={this.props.users} />
             </div>
         );
     }
@@ -23,12 +22,12 @@ class Users extends React.Component {
 
 Users.propTypes = {
     users: PropTypes.array.isRequired,
-    actions: PropTypes.func.isRequired
+    actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        users: state.users
+        users: state.user
     };
 }
 

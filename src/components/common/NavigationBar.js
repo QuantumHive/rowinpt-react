@@ -12,7 +12,7 @@ function NavigationBar() {
                     <Link to="/profile" className="nav-link" activeClassName="active"><i className="fa fa-user fa-2x" /></Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/users" className="nav-link" activeClassName="active"><i className="fa fa-cog fa-2x" /></Link>
+                    <Link to="/settings/users" className="nav-link" activeClassName="active"><i className="fa fa-cog fa-2x" /></Link>
                 </li>
             </ul>
         </div>

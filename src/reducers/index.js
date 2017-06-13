@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-//import users from './userReducer';
+import user from './userReducer';
 import navigation from './navigationReducer';
 
 const rootReducer = combineReducers({
-    command: navigation
+    command: navigation,
+    user
 });
 
  export default rootReducer;
