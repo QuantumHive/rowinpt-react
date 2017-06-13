@@ -8,19 +8,16 @@ import configureStore from './store/configureStore';
 import { Router, browserHistory } from 'react-router';
 import Routes from './routes';
 
-import {loadUsers} from './actions/userActions';
-
 import '../node_modules/bootstrap/scss/bootstrap.scss';
 import '../node_modules/font-awesome/scss/font-awesome.scss';
 import './styles/app.scss';
 
 const store = configureStore();
-store.dispatch(loadUsers());
 
 ReactDOM.render(
     <AppContainer>
         <Provider store={store}>
-        <Router routes={Routes} history={browserHistory} />
+            <Router routes={Routes} history={browserHistory} />
         </Provider>
     </AppContainer>,
     document.getElementById('app')

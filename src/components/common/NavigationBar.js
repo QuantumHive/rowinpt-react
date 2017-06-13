@@ -1,7 +1,7 @@
 import React from 'react';
 import { IndexLink, Link } from 'react-router';
 
-function Navigation() {
+function NavigationBar() {
     return (
         <div>
             <ul className="nav bg-faded nav-justified fixed-top">
@@ -19,4 +19,4 @@ function Navigation() {
     );
 }
 
-export default Navigation;
+export default NavigationBar;
