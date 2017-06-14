@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/routeActions';
-import NavigationBar from '../../components/common/NavigationBar';
+import * as actions from '../actions/routeActions';
+import NavigationBar from '../components/common/NavigationBar';
 
 class Navigation extends React.Component {
     constructor(props){

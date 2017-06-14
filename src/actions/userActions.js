@@ -1,5 +1,5 @@
 import userApi from '../api/userApi';
-import * as type from '../constants/userTypes';
+import * as type from '../constants/actionTypes';
 
 export function loadUsersSuccess(users){
     return {

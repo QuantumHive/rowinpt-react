@@ -1,4 +1,4 @@
-import * as type from '../constants/navigationTypes';
+import * as type from '../constants/actionTypes';
 
 export function setCommandBar(routePath){
     return {

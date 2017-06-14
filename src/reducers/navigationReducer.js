@@ -1,4 +1,5 @@
-import * as type from '../constants/navigationTypes';
+import * as type from '../constants/actionTypes';
+import * as paths from '../constants/routePaths';
 
 export default function navigationReducer(state = null, action) {
     switch (action.type) {
@@ -7,12 +8,12 @@ export default function navigationReducer(state = null, action) {
                 case '/':
                     return {
                         name: 'Inplannen',
-                        url: '/agenda/location'
+                        url: paths.ScheduleLocation
                     };
                 case '/settings/users':
                     return {
                         name: 'Klant toevoegen',
-                        url: '/settings/create/user'
+                        url: paths.UserSettings
                     };
             }
             return null;

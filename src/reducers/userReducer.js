@@ -1,4 +1,4 @@
-import * as type from '../constants/userTypes';
+import * as type from '../constants/actionTypes';
 
 export default function userReducer(state = [], action) {
     switch (action.type) {

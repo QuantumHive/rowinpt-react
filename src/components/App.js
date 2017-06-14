@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Navigation from '../containers/common/Navigation';
-import CommandBar from './common/CommandBar';
-
 import { connect } from 'react-redux';
+
+import Navigation from '../containers/Navigation';
+import CommandBar from './common/CommandBar';
 
 class App extends React.Component {
     render() {
