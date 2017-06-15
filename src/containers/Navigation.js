@@ -39,7 +39,7 @@ Navigation.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        isCommandEnabled: state != null
+        isCommandEnabled: state.command != null
     };
 }
 

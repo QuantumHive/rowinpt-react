@@ -1,3 +1,4 @@
+import React from 'react';
 import * as type from '../constants/actionTypes';
 import * as paths from '../constants/routePaths';
 
@@ -7,14 +8,32 @@ export default function navigationReducer(state = null, action) {
             switch (action.routePath) {
                 case paths.default:
                     return {
-                        name: 'Inplannen',
-                        url: paths.Schedule
+                        primary: {
+                            name: 'Inplannen',
+                            url: paths.Schedule
+                        },
+                        secondary: null
                     };
                 case paths.UserSettings:
                     return {
-                        name: 'Klant toevoegen',
-                        url: paths.UserSettings
+                        primary: {
+                            name: 'Klant toevoegen',
+                            url: paths.UserSettings
+                        },
+                        secondary: null
                     };
+                case paths.ScheduleDate:
+                return {
+                    primary: null,
+                    secondary: {
+                        left: {
+                            icon: <i className="fa fa-chevron-left" />
+                        },
+                        right: {
+                            icon: <i className="fa fa-chevron-right" />
+                        }
+                    }
+                }
             }
             return null;
         }
