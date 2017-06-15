@@ -25,9 +25,9 @@ function Locations() {
 
     return (
         <div>
-            {locations.map((location) => {
+            {locations.map((location, index) => {
                 return (
-            <div className="row">
+            <div key={index} className="row">
                 <div className="col" />
                 <div className="col-10 pt-3">
                     <LocationCard {...location} />

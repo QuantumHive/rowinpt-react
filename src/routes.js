@@ -7,7 +7,7 @@ import App from './components/App';
 import Dashboard from './containers/Dashboard';
 import Schedule from './containers/Schedule';
 import ScheduleLocation from './components/schedule/Locations';
-import ScheduleType from './components/schedule/CourseType';
+import ScheduleType from './components/schedule/CourseTypes';
 import ScheduleDate from './components/schedule/CourseDate';
 import ScheduleCourse from './components/schedule/Course';
 import ScheduleConfirm from './components/schedule/Confirm';
@@ -22,7 +22,7 @@ export default (
 
         <Route path={paths.Schedule} component={Schedule}>
             <IndexRoute component={ScheduleLocation} />
-            <Route path={paths.SchuduleCourseType} component={ScheduleType} />
+            <Route path={paths.ScheduleCourseType} component={ScheduleType} />
             <Route path={paths.ScheduleDate} component={ScheduleDate} />
             <Route path={paths.ScheduleCourse} component={ScheduleCourse} />
             <Route path={paths.ScheduleConfirm} component={ScheduleConfirm} />
