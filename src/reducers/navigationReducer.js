@@ -5,12 +5,12 @@ export default function navigationReducer(state = null, action) {
     switch (action.type) {
         case type.SET_COMMAND: {
             switch (action.routePath) {
-                case '/':
+                case paths.default:
                     return {
                         name: 'Inplannen',
                         url: paths.Schedule
                     };
-                case '/settings/users':
+                case paths.UserSettings:
                     return {
                         name: 'Klant toevoegen',
                         url: paths.UserSettings
