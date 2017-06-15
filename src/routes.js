@@ -6,7 +6,7 @@ import * as paths from './constants/routePaths';
 import App from './components/App';
 import Dashboard from './containers/Dashboard';
 import Schedule from './containers/Schedule';
-import ScheduleLocation from './components/schedule/Location';
+import ScheduleLocation from './components/schedule/Locations';
 import ScheduleType from './components/schedule/CourseType';
 import ScheduleDate from './components/schedule/CourseDate';
 import ScheduleCourse from './components/schedule/Course';
@@ -21,7 +21,7 @@ export default (
         <Route path={paths.UserSettings} component={Users} />
 
         <Route path={paths.Schedule} component={Schedule}>
-            <IndexRoute path={paths.ScheduleLocation} component={ScheduleLocation} />
+            <IndexRoute component={ScheduleLocation} />
             <Route path={paths.SchuduleCourseType} component={ScheduleType} />
             <Route path={paths.ScheduleDate} component={ScheduleDate} />
             <Route path={paths.ScheduleCourse} component={ScheduleCourse} />

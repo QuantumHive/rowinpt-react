@@ -8,7 +8,7 @@ export default function navigationReducer(state = null, action) {
                 case '/':
                     return {
                         name: 'Inplannen',
-                        url: paths.ScheduleLocation
+                        url: paths.Schedule
                     };
                 case '/settings/users':
                     return {
