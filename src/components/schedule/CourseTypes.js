@@ -8,7 +8,7 @@ function CourseTypes() {
         <div>
             {courseTypes.map((courseType, index) => {
                 return (
-                    <div key={index} className="row">
+                    <div key={index} className="row no-gutters">
                         <div className="col" />
                         <div className="col-10 pt-3">
                             <CourseTypeCard courseType={courseType} />
