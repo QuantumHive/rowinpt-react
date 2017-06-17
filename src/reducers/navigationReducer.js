@@ -1,4 +1,3 @@
-import React from 'react';
 import * as type from '../constants/actionTypes';
 import * as paths from '../constants/routePaths';
 
@@ -27,10 +26,10 @@ export default function navigationReducer(state = null, action) {
                     primary: null,
                     secondary: {
                         left: {
-                            icon: <i className="fa fa-chevron-left" />
+                            icon: "fa fa-chevron-left"
                         },
                         right: {
-                            icon: <i className="fa fa-chevron-right" />
+                            icon: "fa fa-chevron-right"
                         }
                     }
                 };
