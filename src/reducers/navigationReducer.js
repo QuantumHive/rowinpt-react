@@ -33,6 +33,18 @@ export default function navigationReducer(state = null, action) {
                         }
                     }
                 };
+                case paths.ScheduleCourse:
+                return {
+                    primary: null,
+                    secondary: {
+                        left: {
+                            icon: "fa fa-chevron-left"
+                        },
+                        right: {
+                            icon: "fa fa-chevron-right"
+                        }
+                    }
+                };
             }
             return null;
         }
