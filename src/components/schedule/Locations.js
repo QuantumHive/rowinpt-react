@@ -24,7 +24,7 @@ function Locations() {
     ];
 
     return (
-        <div>
+        <div className="col p-0">
             {locations.map((location, index) => {
                 return (
             <div key={index} className="row no-gutters">

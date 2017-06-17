@@ -13,7 +13,7 @@ class App extends React.Component {
                     <Navigation routePath={this.props.location.pathname} />
                 </header>
 
-                <section className="content">
+                <section className="col p-0 overflow-y-auto d-flex">
                     {this.props.children}
                 </section>
 

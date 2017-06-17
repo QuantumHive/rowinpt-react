@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
             });
         }
         return (
-            <div>
+            <div className="col p-0">
                 <DashboardList agenda={agenda} />
             </div>
         );

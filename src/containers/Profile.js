@@ -9,13 +9,15 @@ class Profile extends React.Component {
         const user = this.props.user;
 
         return (
-            <div className="jumbotron jumbotron-fluid">
-                <div className="container-fluid">
-                    <div className="justify-content-center d-flex">
-                        <img src={user.avatar} alt="..." className="rounded-circle" />
-                    </div>
-                    <div className="justify-content-center d-flex mt-3">
-                        <p className="lead">{user.name}</p>
+            <div className="col p-0">
+                <div className="jumbotron jumbotron-fluid">
+                    <div className="container-fluid">
+                        <div className="justify-content-center d-flex">
+                            <img src={user.avatar} alt="..." className="rounded-circle" />
+                        </div>
+                        <div className="justify-content-center d-flex mt-3">
+                            <p className="lead">{user.name}</p>
+                        </div>
                     </div>
                 </div>
             </div>

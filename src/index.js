@@ -20,16 +20,3 @@ ReactDOM.render(
     </AppContainer>,
     document.getElementById('app')
 );
-
-
-if (module.hot) {
-    module.hot.accept('./components/Root', () => {
-        const NewRoot = require('./components/Root').default;
-        ReactDOM.render(
-            <AppContainer>
-                <NewRoot store={store} history={history} />
-            </AppContainer>,
-            document.getElementById('app')
-        );
-    });
-}

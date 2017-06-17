@@ -5,7 +5,7 @@ function CourseTypes() {
     const courseTypes = ["Personal Training", "Small Group", "Groepsles"];
 
     return (
-        <div>
+        <div className="col p-0">
             {courseTypes.map((courseType, index) => {
                 return (
                     <div key={index} className="row no-gutters">
