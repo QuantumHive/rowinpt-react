@@ -1,7 +1,9 @@
-body {
-    margin-top:66px;
+#root{
+    height:100vh;
 }
 
-.command-bar {
-    margin-bottom:59px;
+.content {
+    flex:auto;
+    overflow-y: auto;
+   -webkit-overflow-scrolling: touch;
 }

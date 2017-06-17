@@ -33,7 +33,7 @@ export default function navigationReducer(state = null, action) {
                             icon: <i className="fa fa-chevron-right" />
                         }
                     }
-                }
+                };
             }
             return null;
         }

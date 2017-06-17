@@ -2,23 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
-import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
-import { Router, browserHistory } from 'react-router';
-import Routes from './routes';
+import { browserHistory } from 'react-router';
 
 import '../node_modules/bootstrap/scss/bootstrap.scss';
 import '../node_modules/font-awesome/scss/font-awesome.scss';
 import './styles/app.scss';
 
+import Root from './components/Root';
+
 const store = configureStore();
 
 ReactDOM.render(
     <AppContainer>
-        <Provider store={store}>
-            <Router routes={Routes} history={browserHistory} />
-        </Provider>
+        <Root store={store} history={browserHistory} />
     </AppContainer>,
     document.getElementById('app')
 );
+
+
+if (module.hot) {
+    module.hot.accept('./components/Root', () => {
+        const NewRoot = require('./components/Root').default;
+        ReactDOM.render(
+            <AppContainer>
+                <NewRoot store={store} history={history} />
+            </AppContainer>,
+            document.getElementById('app')
+        );
+    });
+}

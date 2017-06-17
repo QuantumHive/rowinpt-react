@@ -4,5 +4,5 @@ export function setCommandBar(routePath){
     return {
         type: type.SET_COMMAND,
         routePath
-    }
+    };
 }

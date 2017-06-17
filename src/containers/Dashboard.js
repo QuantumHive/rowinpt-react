@@ -3,8 +3,8 @@ import DashboardList from '../components/dashboard/DashboardList';
 
 class Dashboard extends React.Component {
     render() {
-        const agenda = []
-        for (let i = 1; i < 20; i++) {
+        const agenda = [];
+        for (let i = 1; i < 10; i++) {
             agenda.push({
                 id: i,
                 date: "maandag 12 juni",

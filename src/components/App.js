@@ -8,21 +8,25 @@ import CommandBar from './common/CommandBar';
 class App extends React.Component {
     render() {
         return (
-            <div>
-                <Navigation routePath={this.props.location.pathname} />
+            <div className="d-flex flex-column" id="root">
+                <header>
+                    <Navigation routePath={this.props.location.pathname} />
+                </header>
 
-                <div className="container-fluid p-0">
+                <section className="content">
                     {this.props.children}
-                </div>
+                </section>
 
-                <CommandBar command={this.props.command} />
+                <footer>
+                    <CommandBar command={this.props.command} />
+                </footer>
             </div>
         );
     }
 }
 
 App.propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.element,
     location: PropTypes.object.isRequired,
     command: PropTypes.object
 };

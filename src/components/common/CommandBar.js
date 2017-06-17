@@ -25,7 +25,7 @@ function CommandBar({ command }) {
     const secondaryRight = renderSecondary(command, 'right');
 
     const commandBar = (
-        <div className="fixed-bottom row bg-faded">
+        <div className="row bg-faded no-gutters">
             {secondaryLeft}
             {primary}
             {secondaryRight}
