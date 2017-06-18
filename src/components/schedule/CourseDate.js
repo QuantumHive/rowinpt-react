@@ -3,22 +3,25 @@ import PropTypes from 'prop-types';
 import StretchGrid from '../common/stretchgrid/StretchGrid';
 import CourseDateCard from './CourseDateCard';
 
+import moment from 'moment';
+
 function CourseDate({nextStep}) {
+    const monday = moment().weekday(0);
     const rows = [
         [
-            <CourseDateCard key="1" date="MA 19-6-2017" step={nextStep} />,
-            <CourseDateCard key="2" date="DI 20-6-2017" step={nextStep} />
+            <CourseDateCard key="1" date={monday} step={nextStep} />,
+            <CourseDateCard key="2" date={monday.clone().add(1, 'd')} step={nextStep} />
         ],
         [
-            <CourseDateCard key="3" date="WO 21-6-2017" step={nextStep} />,
-            <CourseDateCard key="4" date="DO 22-6-2017" step={nextStep} />
+            <CourseDateCard key="3" date={monday.clone().add(2, 'd')} step={nextStep} />,
+            <CourseDateCard key="4" date={monday.clone().add(3, 'd')} step={nextStep} />
         ],
         [
-            <CourseDateCard key="5" date="VR 23-6-2017" step={nextStep} />,
-            <CourseDateCard key="6" date="ZA 24-6-2017" step={nextStep} />
+            <CourseDateCard key="5" date={monday.clone().add(4, 'd')} step={nextStep} />,
+            <CourseDateCard key="6" date={monday.clone().add(5, 'd')} step={nextStep} />
         ],
         [
-            <CourseDateCard key="7" date="MA 25-6-2017" step={nextStep} />,
+            <CourseDateCard key="7" date={monday.clone().add(6, 'd')} step={nextStep} />,
             <div key="8" />
         ],
     ];

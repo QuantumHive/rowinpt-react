@@ -10,6 +10,10 @@ import './styles/app.scss';
 
 import Root from './components/Root';
 
+import moment from 'moment';
+
+moment.locale('nl');
+
 const store = configureStore();
 
 ReactDOM.render(

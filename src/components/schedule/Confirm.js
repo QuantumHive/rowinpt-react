@@ -14,7 +14,7 @@ function Confirm({schedule, cache}){
                 <tbody>
                     <tr><td>{location.location}</td></tr>
                     <tr><td>{courseType.name}</td></tr>
-                    <tr><td>{schedule.date}</td></tr>
+                    <tr><td>{schedule.date.format("dddd, D MMMM Y")}</td></tr>
                     <tr><td>{schedule.course}</td></tr>
                 </tbody>
             </table>
