@@ -5,7 +5,9 @@ class CacheApi {
         return new Promise(resolve =>{
             resolve({
                 locations: db.locations,
-                coursetypes: db.coursetypes
+                coursetypes: db.coursetypes,
+                courses: db.courses,
+                timetable: db.timetable
             });
         });
     }
