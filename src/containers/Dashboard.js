@@ -28,7 +28,7 @@ Dashboard.propTypes = {
 
 function mapStateToProps(state) {
     const cache = state.cache;
-    const agenda = state.agenda.map(a => {
+    const agenda = _.orderBy(state.agenda.map(a => {
         const timetable = _.find(cache.timetable, {id: a.timetableId });
         const course = _.find(cache.courses, {id: timetable.courseId});
         return {
@@ -37,7 +37,7 @@ function mapStateToProps(state) {
             end: timetable.end,
             type: course.name,
         };
-    });
+    }), ['date']);
     return { agenda };
 }
 
