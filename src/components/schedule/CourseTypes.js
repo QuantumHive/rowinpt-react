@@ -21,9 +21,9 @@ function CourseTypes({nextStep, cache, location}) {
     const courseTypes = mapCourseTypes(cache, location);
     return (
         <div className="col p-0">
-            {courseTypes.map((courseType, index) => {
+            {courseTypes.map((courseType) => {
                 return (
-                    <div key={index} className="row no-gutters">
+                    <div key={courseType.id} className="row no-gutters">
                         <div className="col" />
                         <div className="col-10 pt-3">
                             <CourseTypeCard courseType={courseType} step={() => nextStep(courseType.id)} />
