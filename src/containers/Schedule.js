@@ -21,15 +21,47 @@ class Schedule extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.routePath !== nextProps.routePath) {
+            this.determineNextStepCallback(nextProps.routePath);
+        }
+    }
+
+    determineNextStepCallback(routePath) {
+        switch (routePath) {
+            case paths.ScheduleLocation:
+                this.setNextStepCallback(this.props.actions.setLocation);
+                break;
+            case paths.ScheduleCourseType:
+                this.setNextStepCallback(this.props.actions.setCourseType);
+                break;
+            case paths.ScheduleDate:
+                this.setNextStepCallback(this.props.actions.setDate);
+                break;
+            case paths.ScheduleCourse:
+                this.setNextStepCallback(this.props.actions.setCourse);
+                break;
+            case paths.ScheduleConfirm:
+            default:
+                this.setNextStepCallback(null);
+                break;
+        }
+    }
+
+    setNextStepCallback(action) {
+        this.setState({ nextStep: action });
+    }
+
     render() {
         const nextStep = this.state.nextStep;
+        const schedule = this.props.schedule;
         return (
             <Switch>
                 <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} />} />
-                <Route path={paths.ScheduleCourseType} component={ScheduleType} />
-                <Route path={paths.ScheduleDate} component={ScheduleDate} />
-                <Route path={paths.ScheduleCourse} component={ScheduleCourse} />
-                <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm scheduleState={this.props.schedule} />} />
+                <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} />} />
+                <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} />} />
+                <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} />} />
+                <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} />} />
             </Switch>);
     }
 }
@@ -37,11 +69,13 @@ class Schedule extends React.Component {
 Schedule.propTypes = {
     schedule: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    routePath: PropTypes.string.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
         schedule: state.schedule,
+        routePath: ownProps.location.pathname
     };
 }
 

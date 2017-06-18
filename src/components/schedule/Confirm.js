@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as paths from '../../constants/routePaths';
 
-function Confirm({scheduleState}){
+function Confirm({schedule}){
     return (
         <div className="col text-center pt-3">
             <h2>Samenvatting</h2>
             <table className="table">
                 <tbody>
-                    <tr><td>{scheduleState.location}</td></tr>
-                    <tr><td>Groepsles</td></tr>
-                    <tr><td>Maandag 27 juni 2017</td></tr>
-                    <tr><td>Bootcamp</td></tr>
+                    <tr><td>{schedule.location}</td></tr>
+                    <tr><td>{schedule.courseType}</td></tr>
+                    <tr><td>{schedule.date}</td></tr>
+                    <tr><td>{schedule.course}</td></tr>
                 </tbody>
             </table>
 
@@ -22,7 +22,7 @@ function Confirm({scheduleState}){
 }
 
 Confirm.propTypes = {
-    scheduleState: PropTypes.object
+    schedule: PropTypes.object.isRequired
 };
 
 export default Confirm;
