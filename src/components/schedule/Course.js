@@ -28,7 +28,7 @@ function Course({ nextStep, cache, schedule }) {
     const day = schedule.date.day();
     const courseTypeId = schedule.courseType;
     const locationId = schedule.location;
-    const courses = getCourses(cache, day, locationId, courseTypeId);
+    const courses = _.orderBy(getCourses(cache, day, locationId, courseTypeId), ['start']);
 
     return (
         <div className="col p-0">
