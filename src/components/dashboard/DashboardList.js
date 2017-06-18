@@ -13,8 +13,8 @@ function DashboardList({ agenda }) {
         :
         <ul className="list-group">
             {
-                agenda.map(sportDay => {
-                    return (<DashboardCard key={sportDay.id} sportDay={sportDay} />);
+                agenda.map((schedule, index) => {
+                    return (<DashboardCard key={index} schedule={schedule} />);
                 })
             }
         </ul>

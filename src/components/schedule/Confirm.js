@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import * as paths from '../../constants/routePaths';
 import _ from 'lodash';
 
-function Confirm({schedule, cache}){
-    const location = _.find(cache.locations, {id: schedule.location});
-    const courseType = _.find(cache.coursetypes, {id: schedule.courseType});
-    const timetable = _.find(cache.timetable, {id: schedule.course});
-    const course = _.find(cache.courses, {id: timetable.courseId});
+function Confirm({ schedule, cache, submit }) {
+    const location = _.find(cache.locations, { id: schedule.location });
+    const courseType = _.find(cache.coursetypes, { id: schedule.courseType });
+    const timetable = _.find(cache.timetable, { id: schedule.course });
+    const course = _.find(cache.courses, { id: timetable.courseId });
     return (
         <div className="col text-center pt-3">
             <h2>Samenvatting</h2>
@@ -22,14 +20,15 @@ function Confirm({schedule, cache}){
                 </tbody>
             </table>
 
-            <Link to={paths.default} role="button" className="btn btn-outline-success btn-lg btn-block">Aanmelden</Link>
+            <button role="button" className="btn btn-outline-success btn-lg btn-block" onClick={submit}>Aanmelden</button>
         </div>
     );
 }
 
 Confirm.propTypes = {
     schedule: PropTypes.object.isRequired,
-    cache: PropTypes.object.isRequired
+    cache: PropTypes.object.isRequired,
+    submit: PropTypes.func.isRequired
 };
 
 export default Confirm;

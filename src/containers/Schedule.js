@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Redirect, Switch, Route, withRouter } from 'react-router-dom';
 
 import * as actions from '../actions/scheduleActions';
 
@@ -20,6 +20,8 @@ class Schedule extends React.Component {
             nextStep: props.actions.setLocation
         };
         props.actions.loadCache();
+
+        this.submit = this.submit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -53,20 +55,30 @@ class Schedule extends React.Component {
         this.setState({ nextStep: action });
     }
 
+    submit() {
+        const date = this.props.schedule.date;
+        const id = this.props.schedule.course;
+        this.props.actions.addSchedule(date, id);
+        this.setState({redirect: true});
+    }
+
     render() {
+        if (this.state.redirect) {
+            return <Redirect push to={paths.default} />;
+        }
         const nextStep = this.state.nextStep;
         const schedule = this.props.schedule;
         const cache = this.props.cache;
 
         return (
             cache === null ? false :
-            <Switch>
-                <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} locations={cache.locations} />} />
-                <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} cache={cache} location={schedule.location} />} />
-                <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} />} />
-                <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
-                <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} />} />
-            </Switch>);
+                <Switch>
+                    <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} locations={cache.locations} />} />
+                    <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} cache={cache} location={schedule.location} />} />
+                    <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} />} />
+                    <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
+                    <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
+                </Switch>);
     }
 }
 

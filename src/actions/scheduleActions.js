@@ -1,4 +1,5 @@
 import cacheApi from '../api/cacheApi';
+import agendaApi from '../api/agendaApi';
 import * as type from '../constants/actionTypes';
 
 export function setLocation(location){
@@ -38,4 +39,17 @@ export function loadCacheSuccess(cache){
 
 export function loadCache(){
     return dispatch => cacheApi.refreshCache().then(cache => dispatch(loadCacheSuccess(cache)));
+}
+
+export function addScheduleSuccess(schedule){
+    return {
+        type: type.ADD_SCHEDULE,
+        schedule
+    };
+}
+
+export function addSchedule(date, timetableId) {
+    return dispatch => {
+        return agendaApi.addAgenda(date, timetableId).then(schedule => dispatch(addScheduleSuccess(schedule)));
+    }
 }
