@@ -1,2 +1,3 @@
 export const LOAD_USERS = 'LOAD_USERS';
 export const SET_COMMAND = 'SET_COMMAND';
+export const SCHEDULE_SET_LOCATION = 'SCHEDULE_SET_LOCATION';

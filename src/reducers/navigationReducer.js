@@ -9,7 +9,7 @@ export default function navigationReducer(state = null, action) {
                     return {
                         primary: {
                             name: 'Inplannen',
-                            url: paths.Schedule
+                            url: paths.ScheduleLocation
                         },
                         secondary: null
                     };

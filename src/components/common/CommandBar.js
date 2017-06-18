@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function renderSecondary(command, leftRight) {
     const secondaryEnabled = command.secondary !== null && command.secondary[leftRight] !== null;
@@ -15,8 +15,6 @@ function renderSecondary(command, leftRight) {
 }
 
 function CommandBar({ command }) {
-    if (command === null) return false;
-
     const primary = command.primary === null
         ? <div className="col-6 text-center py-1" />
         : (

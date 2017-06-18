@@ -1,24 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
-import Navigation from '../containers/Navigation';
+import * as actions from '../actions/routeActions';
+import defaultRoute from '../routes';
+import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
 
 class App extends React.Component {
+
+    componentDidMount() {
+        this.props.actions.setCommandBar(this.props.routePath);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.routePath !== nextProps.routePath) {
+            this.props.actions.setCommandBar(nextProps.routePath);
+        }
+    }
+
     render() {
         return (
             <div className="d-flex flex-column" id="root">
                 <header>
-                    <Navigation routePath={this.props.location.pathname} />
+                    <NavigationBar />
                 </header>
 
                 <section className="col p-0 overflow-y-auto d-flex">
-                    {this.props.children}
+                    {defaultRoute}
                 </section>
 
                 <footer>
-                    <CommandBar command={this.props.command} />
+                    {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
                 </footer>
             </div>
         );
@@ -26,17 +41,25 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    children: PropTypes.element,
-    location: PropTypes.object.isRequired,
-    command: PropTypes.object
+    actions: PropTypes.object.isRequired,
+    command: PropTypes.object,
+    routePath: PropTypes.string.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        command: state.command
+        command: state.command,
+        routePath: ownProps.location.pathname
     };
 }
 
-export default connect(
-    mapStateToProps
-)(App);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+export default withRouter(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App));
