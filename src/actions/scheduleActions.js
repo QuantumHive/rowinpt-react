@@ -51,5 +51,5 @@ export function addScheduleSuccess(schedule){
 export function addSchedule(date, timetableId) {
     return dispatch => {
         return agendaApi.addAgenda(date, timetableId).then(schedule => dispatch(addScheduleSuccess(schedule)));
-    }
+    };
 }
