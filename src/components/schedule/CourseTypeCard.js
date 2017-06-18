@@ -7,7 +7,7 @@ function CourseTypeCard({courseType, step}) {
     return (
         <div className="card">
             <div className="card-block text-center">
-                <h3 className="card-title">{courseType}</h3>
+                <h3 className="card-title">{courseType.name}</h3>
                 <div className="text-right mt-5">
                     <Link to={paths.ScheduleDate} className="btn btn-outline-primary" onClick={step}>Kies</Link>
                 </div>
@@ -17,7 +17,7 @@ function CourseTypeCard({courseType, step}) {
 }
 
 CourseTypeCard.propTypes = {
-    courseType: PropTypes.string.isRequired,
+    courseType: PropTypes.object.isRequired,
     step: PropTypes.func.isRequired
 };
 

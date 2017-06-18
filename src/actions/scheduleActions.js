@@ -1,3 +1,4 @@
+import cacheApi from '../api/cacheApi';
 import * as type from '../constants/actionTypes';
 
 export function setLocation(location){
@@ -26,4 +27,15 @@ export function setCourse(course){
         type: type.SCHEDULE_SET_COURSE,
         course
     };
+}
+
+export function loadCacheSuccess(cache){
+    return {
+        type: type.REFRESH_CACHE,
+        cache
+    };
+}
+
+export function loadCache(){
+    return dispatch => cacheApi.refreshCache().then(cache => dispatch(loadCacheSuccess(cache)));
 }

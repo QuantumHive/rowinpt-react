@@ -19,6 +19,7 @@ class Schedule extends React.Component {
         this.state = {
             nextStep: props.actions.setLocation
         };
+        props.actions.loadCache();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -55,13 +56,15 @@ class Schedule extends React.Component {
     render() {
         const nextStep = this.state.nextStep;
         const schedule = this.props.schedule;
+        const cache = this.props.cache;
         return (
+            cache === null ? false :
             <Switch>
-                <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} />} />
-                <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} />} />
-                <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} />} />
-                <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} />} />
-                <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} />} />
+                <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} locations={cache.locations} />} />
+                <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} cache={cache} coursetypes={cache.coursetypes} />} />
+                <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} />} />
+                <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} />} />
+                <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} />} />
             </Switch>);
     }
 }
@@ -69,13 +72,15 @@ class Schedule extends React.Component {
 Schedule.propTypes = {
     schedule: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
-    routePath: PropTypes.string.isRequired
+    routePath: PropTypes.string.isRequired,
+    cache: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
     return {
         schedule: state.schedule,
-        routePath: ownProps.location.pathname
+        routePath: ownProps.location.pathname,
+        cache: state.cache
     };
 }
 

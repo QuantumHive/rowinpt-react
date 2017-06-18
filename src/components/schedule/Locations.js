@@ -2,36 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LocationCard from './LocationCard';
 
-const locations = [
-    {
-        location: "Arnhem Noord",
-        address: "Mercatorweg 65",
-        postalcode: "6827DB",
-        city: "Arnhem",
-    },
-    {
-        location: "Elderveld",
-        address: "Kromwijkplaats 4",
-        postalcode: "6843GR",
-        city: "Arnhem",
-    },
-    {
-        location: "Malburgen",
-        address: "Lipinestraat 12",
-        postalcode: "6841GD",
-        city: "Arnhem",
-    }
-];
-
-function Locations({nextStep}) {
+function Locations({nextStep, locations}) {
     return (
         <div className="col p-0">
-            {locations.map((location, index) => {
+            {locations.map(location => {
                 return (
-                    <div key={index} className="row no-gutters">
+                    <div key={location.id} className="row no-gutters">
                         <div className="col" />
                         <div className="col-10 pt-3">
-                            <LocationCard {...location} step={() => nextStep(location.location)} />
+                            <LocationCard location={location} step={() => nextStep(location.id)} />
                         </div>
                         <div className="col" />
                     </div>);
@@ -41,7 +20,8 @@ function Locations({nextStep}) {
 }
 
 Locations.propTypes = {
-    nextStep: PropTypes.func.isRequired
+    nextStep: PropTypes.func.isRequired,
+    locations: PropTypes.array.isRequired
 };
 
 export default Locations;
