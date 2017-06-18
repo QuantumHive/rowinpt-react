@@ -11,7 +11,7 @@ function DashboardList({ agenda }) {
             <i className="text-warning fa fa-angle-double-down fa-5x" />
         </div>
         :
-        <ul className="list-group">
+        <ul className="list-group col p-0">
             {
                 agenda.map((schedule, index) => {
                     return (<DashboardCard key={index} schedule={schedule} />);

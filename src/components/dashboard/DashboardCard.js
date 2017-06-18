@@ -4,7 +4,7 @@ import DashboardCardItem from './DashboardCardItem';
 
 function DashboardCard({ schedule }) {
     return (
-        <li className="list-group-item list-group-item-action card p-0 border-left-0 border-right-0 rounded-0">
+        <li className="list-group-item list-group-item-action card p-0">
             <div className="card-block p-0">
                 <div className="row no-gutters">
                     <div className="col-12">
