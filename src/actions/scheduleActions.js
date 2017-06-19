@@ -53,3 +53,16 @@ export function addSchedule(date, timetableId) {
         return agendaApi.addAgenda(date, timetableId).then(schedule => dispatch(addScheduleSuccess(schedule)));
     };
 }
+
+export function deleteScheduleSuccess(scheduleId){
+    return {
+        type: type.DELETE_SCHEDULE,
+        scheduleId
+    };
+}
+
+export function deleteSchedule(id){
+    return dispatch => {
+        return agendaApi.deleteAgenda(id).then(scheduleId => dispatch(deleteScheduleSuccess(scheduleId)));
+    }
+}

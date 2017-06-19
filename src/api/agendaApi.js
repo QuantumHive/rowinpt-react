@@ -1,4 +1,5 @@
 import db from './db';
+import _ from 'lodash';
 
 let id = 1;
 
@@ -22,6 +23,14 @@ class AgendaApi {
             id++;
                      
             resolve(agenda);
+        });
+    }
+
+    static deleteAgenda(id) {
+        return new Promise(resolve => {
+            const index = _.findIndex(db.agenda, {id: id});
+            db.agenda.splice(index, 1);
+            resolve(id);
         });
     }
 }

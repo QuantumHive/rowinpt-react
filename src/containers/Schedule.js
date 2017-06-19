@@ -26,6 +26,7 @@ class Schedule extends React.Component {
         props.actions.loadCache();
 
         this.submit = this.submit.bind(this);
+        this.cancel = this.cancel.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -85,6 +86,8 @@ class Schedule extends React.Component {
     }
 
     cancel(id) {
+        this.props.actions.deleteSchedule(id);
+        this.setState({ redirect: true });
     }
 
     render() {
