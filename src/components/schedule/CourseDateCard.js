@@ -3,16 +3,26 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as paths from '../../constants/routePaths';
 
-function CourseDateCard({date, step, enabled}) {
-    return (
-        <div className="card col p-0 d-flex flex-column">
-            <h5 className="pt-2 pl-3 col">{date.format("dd D-M-Y")}</h5>
-            { enabled ?
-            <div className="text-right m-3">
-                <Link to={paths.ScheduleCourse} role="button" className="btn btn-outline-primary" onClick={() => step(date)} >Kies</Link>
-            </div> : false}
-        </div>
-    );
+import moment from 'moment';
+
+function CourseDateCard({ date, step, enabled }) {
+    const today = moment();
+    const max = today.clone().add(5, 'w');
+
+    const content = (
+        <span>
+            <p className="mt-2 ml-3 lead align-self-start">{date.format("dddd")}</p>
+            <p className="ml-3 align-self-start">{date.format("D-M-Y")}</p>
+        </span>);
+
+    return today.isSameOrBefore(date, 'd') && date.isSameOrBefore(max, 'd') && enabled ? (
+        <Link to={paths.ScheduleCourse} className="col p-0 d-flex flex-column list-group-item list-group-item-action list-group-item-success" onClick={() => step(date)}>
+            {content}
+        </Link>)
+        :
+        <div className="col p-0 d-flex flex-column list-group-item ">
+            {content}
+        </div>;
 }
 
 CourseDateCard.propTypes = {
