@@ -14,11 +14,14 @@ import ScheduleCourse from '../components/schedule/Course';
 import ScheduleConfirm from '../components/schedule/Confirm';
 import ScheduleCancel from '../components/schedule/Cancel';
 
+import _ from 'lodash';
+
 class Schedule extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            nextStep: props.actions.setLocation
+            nextStep: props.actions.setLocation,
+            cancel: null
         };
         props.actions.loadCache();
 
@@ -28,6 +31,24 @@ class Schedule extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.routePath !== nextProps.routePath) {
             this.determineNextStepCallback(nextProps.routePath);
+        }
+        if (nextProps.routePath === paths.ScheduleConfirm) {
+            const existingAgenda = _.find(nextProps.agenda, { timetableId: nextProps.schedule.course, date: nextProps.schedule.date.format("D-M-Y") });
+            if(existingAgenda !== undefined){
+                this.setState(prevState => {
+                    return {
+                        nextStep: prevState.nextStep,
+                        cancel: `${paths.ScheduleCancel}/${existingAgenda.id}/${nextProps.schedule.date.format("D-M-Y")}`
+                    };
+                });
+            }
+        }else{
+            this.setState(prevState => {
+                return {
+                    nextStep: prevState.nextStep,
+                    cancel: null
+                };
+            });
         }
     }
 
@@ -60,21 +81,24 @@ class Schedule extends React.Component {
         const date = this.props.schedule.date;
         const id = this.props.schedule.course;
         this.props.actions.addSchedule(date, id);
-        this.setState({redirect: true});
+        this.setState({ redirect: true });
     }
 
-    cancel(id){
+    cancel(id) {
     }
 
     render() {
         if (this.state.redirect) {
             return <Redirect push to={paths.default} />;
         }
+        if (this.state.cancel) {
+            return <Redirect push to={this.state.cancel} />;
+        }
         const nextStep = this.state.nextStep;
         const schedule = this.props.schedule;
         const cache = this.props.cache;
         const agenda = this.props.agenda;
-        
+
         return (
             cache === null ? false :
                 <Switch>
@@ -83,7 +107,7 @@ class Schedule extends React.Component {
                     <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
-                    <Route path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda} cache={cache} cancel={this.cancel} {...props}/>} />
+                    <Route path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda} cache={cache} cancel={this.cancel} {...props} />} />
                 </Switch>);
     }
 }
