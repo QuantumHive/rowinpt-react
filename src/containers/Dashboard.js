@@ -12,7 +12,8 @@ import moment from 'moment';
 class Dashboard extends React.Component {
 
     render() {
-        const agenda = this.props.agenda;
+        const now = moment();
+        const agenda = _.filter(this.props.agenda, a => now.isSameOrBefore(moment(a.date, "D-M-Y"), 'd'));
         return (
             <div className="col p-0 d-flex">
                 <DashboardList agenda={agenda} />
