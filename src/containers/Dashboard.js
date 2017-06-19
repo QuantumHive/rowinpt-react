@@ -31,11 +31,13 @@ function mapStateToProps(state) {
     const agenda = _.orderBy(state.agenda.map(a => {
         const timetable = _.find(cache.timetable, {id: a.timetableId });
         const course = _.find(cache.courses, {id: timetable.courseId});
+        const location = _.find(cache.locations, {id: timetable.locationId});
         return {
             date: moment(a.date, "D-M-Y"),
             start: timetable.start,
             end: timetable.end,
             type: course.name,
+            location: location.location
         };
     }), ['date']);
     return { agenda };

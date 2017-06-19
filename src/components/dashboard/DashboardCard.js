@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DashboardCardItem from './DashboardCardItem';
+import { Link } from 'react-router-dom';
 
 function DashboardCard({ schedule }) {
     return (
-        <li className="list-group-item list-group-item-action card p-0">
-            <div className="card-block p-0">
-                <div className="row no-gutters">
-                    <div className="col-12">
-                        <h5 className="m-2">{schedule.date.format("D-M-Y")}</h5>
-                    </div>
-                </div>
-                <DashboardCardItem course={schedule} />
+        <Link to="#" className="list-group-item list-group-item-action d-flex flex-column align-items-start flex-nowrap">
+            <div className="d-flex flex-row flex-nowrap">
+                <p className="lead mb-1">{schedule.date.format("dd, D-M-Y")}</p>
+                <p className="align-self-center ml-2 mb-0">{schedule.location}</p>
             </div>
-        </li>
+            <div className="d-flex flex-row">
+                <div>
+                    <div><strong>{schedule.start}</strong></div>
+                    <div><strong>{schedule.end}</strong></div>
+                </div>
+                <p className="ml-3 mb-0 align-self-center">{schedule.type}</p>
+            </div>
+        </Link>
     );
 }
 
