@@ -75,7 +75,7 @@ class Schedule extends React.Component {
                 <Switch>
                     <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} locations={cache.locations} />} />
                     <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} cache={cache} location={schedule.location} />} />
-                    <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} />} />
+                    <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
                 </Switch>);

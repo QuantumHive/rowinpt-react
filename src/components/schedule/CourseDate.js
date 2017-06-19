@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/routeActions';
 
 import moment from 'moment';
+import _ from 'lodash';
 
 class CourseDate extends React.Component {
     constructor(props) {
@@ -39,25 +40,34 @@ class CourseDate extends React.Component {
         });
     }
 
+    groupDaysByLocationAndCourseType(){
+        const timetable = _.filter(this.props.cache.timetable, t => t.locationId === this.props.schedule.location);
+        const courses = _.filter(this.props.cache.courses, c => c.courseTypeId === this.props.schedule.courseType);
+        const filterTimetable = _.filter(timetable, t => _.some(courses, c => c.id === t.courseId));
+        const days = _.map(filterTimetable, t => t.day);
+        return _.uniq(days);
+    }
+
     render() {
         const monday = this.state.monday;
         const nextStep = this.props.nextStep;
+        const days = this.groupDaysByLocationAndCourseType();
 
         const rows = [
             [
-                <CourseDateCard key="1" date={monday} step={nextStep} />,
-                <CourseDateCard key="2" date={monday.clone().add(1, 'd')} step={nextStep} />
+                <CourseDateCard key="1" date={monday} step={nextStep} enabled={_.includes(days, 1)} />,
+                <CourseDateCard key="2" date={monday.clone().add(1, 'd')} step={nextStep} enabled={_.includes(days, 2)} />
             ],
             [
-                <CourseDateCard key="3" date={monday.clone().add(2, 'd')} step={nextStep} />,
-                <CourseDateCard key="4" date={monday.clone().add(3, 'd')} step={nextStep} />
+                <CourseDateCard key="3" date={monday.clone().add(2, 'd')} step={nextStep} enabled={_.includes(days, 3)} />,
+                <CourseDateCard key="4" date={monday.clone().add(3, 'd')} step={nextStep} enabled={_.includes(days, 4)} />
             ],
             [
-                <CourseDateCard key="5" date={monday.clone().add(4, 'd')} step={nextStep} />,
-                <CourseDateCard key="6" date={monday.clone().add(5, 'd')} step={nextStep} />
+                <CourseDateCard key="5" date={monday.clone().add(4, 'd')} step={nextStep} enabled={_.includes(days, 5)} />,
+                <CourseDateCard key="6" date={monday.clone().add(5, 'd')} step={nextStep} enabled={_.includes(days, 6)} />
             ],
             [
-                <CourseDateCard key="7" date={monday.clone().add(6, 'd')} step={nextStep} />,
+                <CourseDateCard key="7" date={monday.clone().add(6, 'd')} step={nextStep} enabled={_.includes(days, 7)} />,
                 <div key="8" />
             ],
         ];
@@ -71,7 +81,9 @@ class CourseDate extends React.Component {
 
 CourseDate.propTypes = {
     actions: PropTypes.object.isRequired,
-    nextStep: PropTypes.func.isRequired
+    nextStep: PropTypes.func.isRequired,
+    cache: PropTypes.object.isRequired,
+    schedule: PropTypes.object.isRequired
 };
 
 function mapStateToProps() {
