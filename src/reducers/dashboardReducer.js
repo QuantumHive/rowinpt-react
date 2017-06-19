@@ -8,6 +8,7 @@ export default function dashboardReducer(state = [], action) {
             return [
                 ...state,
                 {
+                    id: action.schedule.id,
                     timetableId: action.schedule.timetableId,
                     date: action.schedule.date
                 }

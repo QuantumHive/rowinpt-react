@@ -34,6 +34,7 @@ function mapStateToProps(state) {
         const course = _.find(cache.courses, {id: timetable.courseId});
         const location = _.find(cache.locations, {id: timetable.locationId});
         return {
+            id: a.id,
             date: moment(a.date, "D-M-Y"),
             start: timetable.start,
             end: timetable.end,

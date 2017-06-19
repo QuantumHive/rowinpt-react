@@ -12,6 +12,7 @@ import ScheduleType from '../components/schedule/CourseTypes';
 import ScheduleDate from '../components/schedule/CourseDate';
 import ScheduleCourse from '../components/schedule/Course';
 import ScheduleConfirm from '../components/schedule/Confirm';
+import ScheduleCancel from '../components/schedule/Cancel';
 
 class Schedule extends React.Component {
     constructor(props) {
@@ -62,6 +63,9 @@ class Schedule extends React.Component {
         this.setState({redirect: true});
     }
 
+    cancel(id){
+    }
+
     render() {
         if (this.state.redirect) {
             return <Redirect push to={paths.default} />;
@@ -69,7 +73,8 @@ class Schedule extends React.Component {
         const nextStep = this.state.nextStep;
         const schedule = this.props.schedule;
         const cache = this.props.cache;
-
+        const agenda = this.props.agenda;
+        
         return (
             cache === null ? false :
                 <Switch>
@@ -78,6 +83,7 @@ class Schedule extends React.Component {
                     <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
+                    <Route path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda} cache={cache} cancel={this.cancel} {...props}/>} />
                 </Switch>);
     }
 }
@@ -86,14 +92,16 @@ Schedule.propTypes = {
     schedule: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
     routePath: PropTypes.string.isRequired,
-    cache: PropTypes.object
+    cache: PropTypes.object,
+    agenda: PropTypes.array
 };
 
 function mapStateToProps(state, ownProps) {
     return {
         schedule: state.schedule,
         routePath: ownProps.location.pathname,
-        cache: state.cache
+        cache: state.cache,
+        agenda: state.agenda
     };
 }
 
