@@ -1,8 +1,16 @@
 import * as type from '../constants/actionTypes';
 
-export function setCommandBar(routePath){
+export function setPrimaryCommandBar(primary){
     return {
-        type: type.SET_COMMAND,
-        routePath
+        type: type.SET_COMMAND_PRIMARY,
+        primary
+    };
+}
+
+export function setSecondaryCommandBar(leftCallback, rightCallback){
+    return {
+        type: type.SET_COMMAND_SECONDARY,
+        leftCallback,
+        rightCallback
     };
 }

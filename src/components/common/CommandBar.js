@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 function renderSecondary(command, leftRight) {
     const secondaryEnabled = command.secondary !== null && command.secondary[leftRight] !== null;
-    
+
     return secondaryEnabled
         ? (
             <div className="col text-center py-1">
-                <button type="button" className="btn btn-outline-secondary btn-lg">
+                <button type="button" className="btn btn-outline-secondary btn-lg" onClick={command.secondary[leftRight]['callback']}>
                     <i className={command.secondary[leftRight]['icon']} />
                 </button>
             </div>)

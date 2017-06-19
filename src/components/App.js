@@ -4,20 +4,45 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
+import * as paths from '../constants/routePaths';
 import * as actions from '../actions/routeActions';
 import defaultRoute from '../routes';
 import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
 
 class App extends React.Component {
-
     componentDidMount() {
-        this.props.actions.setCommandBar(this.props.routePath);
+        const primary = this.switchPrimaryContent(this.props.routePath);
+        this.props.actions.setPrimaryCommandBar(primary);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.routePath !== nextProps.routePath) {
-            this.props.actions.setCommandBar(nextProps.routePath);
+            const primary = this.switchPrimaryContent(nextProps.routePath);
+            this.props.actions.setPrimaryCommandBar(primary);
+        }
+    }
+
+    switchPrimaryContent(routePath) {
+        switch (routePath) {
+            case paths.default:
+                return {
+                    primary: {
+                        name: 'Inplannen',
+                        url: paths.ScheduleLocation
+                    },
+                    secondary: null
+                };
+            case paths.UserSettings:
+                return {
+                    primary: {
+                        name: 'Klant toevoegen',
+                        url: paths.UserSettings
+                    },
+                    secondary: null
+                };
+            default:
+                return null;
         }
     }
 
