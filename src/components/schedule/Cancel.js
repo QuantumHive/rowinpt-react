@@ -16,10 +16,18 @@ function Cancel({agenda, cache, cancel, match }) {
         date: moment(match.params.date, "D-M-Y")
     };
 
+    const courseDate = moment(match.params.date + " " + timetable.start, "D-M-Y hh:mm");
+    const disable = moment().add(24, 'h').isAfter(courseDate);
+
     return (
         <div className="col text-center pt-3">
             <Summary schedule={schedule} cache={cache} />
-            <button role="button" className="btn btn-outline-danger btn-lg btn-block" onClick={() => cancel(match.params.id)}>Afmelden</button>
+            {
+                disable
+                ? <button disabled="disabled" role="button" className="btn btn-danger btn-lg btn-block" onClick={() => cancel(match.params.id)}>Afmelden</button>
+                : <button role="button" className="btn btn-outline-danger btn-lg btn-block" onClick={() => cancel(match.params.id)}>Afmelden</button>
+            }
+            
         </div>
     );
 }
