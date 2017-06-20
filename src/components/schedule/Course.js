@@ -30,7 +30,11 @@ function Course({ nextStep, cache, schedule }) {
     const courseTypeId = schedule.courseType;
     const locationId = schedule.location;
     const now = moment();
-    const courses = _.filter(_.orderBy(getCourses(cache, day, locationId, courseTypeId), ['start']), c => now.isBefore(moment(c.start, 'hh:mm')));
+
+    let courses = _.orderBy(getCourses(cache, day, locationId, courseTypeId), ['start']);
+    if(now.isSame(schedule.date, 'd')){
+        courses = _.filter(courses, c => now.isBefore(moment(c.start, 'hh:mm')));
+    }
 
     return (
         <div className="col p-0">
