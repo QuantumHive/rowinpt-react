@@ -32,7 +32,7 @@ db.locations = [
 db.coursetypes = [
     {
         id: 1,
-        name: "Personal Training"
+        name: "Begeleid Trainen"
     },
     {
         id: 2,
