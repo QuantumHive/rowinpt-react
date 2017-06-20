@@ -60,6 +60,7 @@ class App extends React.Component {
                 <footer>
                     {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
                 </footer>
+                <small style={{position: "fixed", userSelect: "none", cursor: "default"}}>v{this.props.version}</small>
             </div>
         );
     }
@@ -68,7 +69,8 @@ class App extends React.Component {
 App.propTypes = {
     actions: PropTypes.object.isRequired,
     command: PropTypes.object,
-    routePath: PropTypes.string.isRequired
+    routePath: PropTypes.string.isRequired,
+    version: PropTypes.string
 };
 
 function mapStateToProps(state, ownProps) {

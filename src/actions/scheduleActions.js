@@ -64,5 +64,5 @@ export function deleteScheduleSuccess(scheduleId){
 export function deleteSchedule(id){
     return dispatch => {
         return agendaApi.deleteAgenda(id).then(scheduleId => dispatch(deleteScheduleSuccess(scheduleId)));
-    }
+    };
 }
