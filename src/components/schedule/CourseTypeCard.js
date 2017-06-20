@@ -5,14 +5,9 @@ import * as paths from '../../constants/routePaths';
 
 function CourseTypeCard({courseType, step}) {
     return (
-        <div className="card">
-            <div className="card-block text-center">
-                <h3 className="card-title">{courseType.name}</h3>
-                <div className="text-right mt-5">
-                    <Link to={paths.ScheduleDate} className="btn btn-outline-primary" onClick={step}>Kies</Link>
-                </div>
-            </div>
-        </div>
+        <Link to={paths.ScheduleDate} className="list-group-item list-group-item-action d-flex flex-column align-items-start flex-nowrap p-4" onClick={step}>
+                <h3 >{courseType.name}</h3>
+        </Link>
     );
 }
 

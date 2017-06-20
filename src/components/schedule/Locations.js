@@ -5,16 +5,12 @@ import LocationCard from './LocationCard';
 function Locations({nextStep, locations}) {
     return (
         <div className="col p-0">
+            <div className="list-group">
             {locations.map(location => {
                 return (
-                    <div key={location.id} className="row no-gutters">
-                        <div className="col" />
-                        <div className="col-10 pt-3">
-                            <LocationCard location={location} step={() => nextStep(location.id)} />
-                        </div>
-                        <div className="col" />
-                    </div>);
+                    <LocationCard key={location.id} location={location} step={() => nextStep(location.id)} />);
             })}
+            </div>
         </div>
     );
 }

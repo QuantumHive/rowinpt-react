@@ -5,19 +5,14 @@ import * as paths from '../../constants/routePaths';
 
 function LocationCard({ location, step }) {
     return (
-        <div className="card">
-            <div className="card-block">
-                <h4 className="card-title">{location.location}</h4>
-                <address className="card-text">
+        <Link to={paths.ScheduleCourseType} className="list-group-item list-group-item-action d-flex flex-column align-items-start flex-nowrap p-4" onClick={step}>
+                <h4>{location.location}</h4>
+                <address>
                     {location.address}
                     <br />
                     {location.postalcode} {location.city}
                 </address>
-                <div className="text-right">
-                    <Link to={paths.ScheduleCourseType} role="button" className="btn btn-outline-primary" onClick={step} >Kies</Link>
-                </div>
-            </div>
-        </div>
+        </Link>
     );
 }
 

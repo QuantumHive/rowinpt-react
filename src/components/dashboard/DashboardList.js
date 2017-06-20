@@ -14,8 +14,8 @@ function DashboardList({ agenda }) {
         <div className="col p-0">
             <div className="list-group">
             {
-                agenda.map((schedule, index) => {
-                    return (<DashboardCard key={index} schedule={schedule} />);
+                agenda.map((schedule) => {
+                    return (<DashboardCard key={schedule.id} schedule={schedule} />);
                 })
             }
             </div>
