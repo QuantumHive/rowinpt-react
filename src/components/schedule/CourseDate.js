@@ -52,22 +52,23 @@ class CourseDate extends React.Component {
         const monday = this.state.monday;
         const nextStep = this.props.nextStep;
         const days = this.groupDaysByLocationAndCourseType();
-
+        const cache = this.props.cache;
+        const schedule = this.props.schedule;
         const rows = [
             [
-                <CourseDateCard key="1" date={monday} step={nextStep} enabled={_.includes(days, 1)} />,
-                <CourseDateCard key="2" date={monday.clone().add(1, 'd')} step={nextStep} enabled={_.includes(days, 2)} />
+                <CourseDateCard key="1" date={monday} step={nextStep} enabled={_.includes(days, 1)} cache={cache} schedule={schedule} />,
+                <CourseDateCard key="2" date={monday.clone().add(1, 'd')} step={nextStep} enabled={_.includes(days, 2)} cache={cache} schedule={schedule} />
             ],
             [
-                <CourseDateCard key="3" date={monday.clone().add(2, 'd')} step={nextStep} enabled={_.includes(days, 3)} />,
-                <CourseDateCard key="4" date={monday.clone().add(3, 'd')} step={nextStep} enabled={_.includes(days, 4)} />
+                <CourseDateCard key="3" date={monday.clone().add(2, 'd')} step={nextStep} enabled={_.includes(days, 3)} cache={cache} schedule={schedule} />,
+                <CourseDateCard key="4" date={monday.clone().add(3, 'd')} step={nextStep} enabled={_.includes(days, 4)} cache={cache} schedule={schedule} />
             ],
             [
-                <CourseDateCard key="5" date={monday.clone().add(4, 'd')} step={nextStep} enabled={_.includes(days, 5)} />,
-                <CourseDateCard key="6" date={monday.clone().add(5, 'd')} step={nextStep} enabled={_.includes(days, 6)} />
+                <CourseDateCard key="5" date={monday.clone().add(4, 'd')} step={nextStep} enabled={_.includes(days, 5)} cache={cache} schedule={schedule} />,
+                <CourseDateCard key="6" date={monday.clone().add(5, 'd')} step={nextStep} enabled={_.includes(days, 6)} cache={cache} schedule={schedule} />
             ],
             [
-                <CourseDateCard key="7" date={monday.clone().add(6, 'd')} step={nextStep} enabled={_.includes(days, 7)} />,
+                <CourseDateCard key="7" date={monday.clone().add(6, 'd')} step={nextStep} enabled={_.includes(days, 7)} cache={cache} schedule={schedule} />,
                 <div key="8" />
             ],
         ];
