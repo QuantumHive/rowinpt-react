@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as paths from '../../constants/routePaths';
 
 import _ from 'lodash';
+import moment from 'moment';
 
 function getCourses(cache, day, locationId, courseTypeId) {
     const timetable = _.filter(cache.timetable, function (t) {
@@ -28,7 +29,8 @@ function Course({ nextStep, cache, schedule }) {
     const day = schedule.date.day();
     const courseTypeId = schedule.courseType;
     const locationId = schedule.location;
-    const courses = _.orderBy(getCourses(cache, day, locationId, courseTypeId), ['start']);
+    const now = moment();
+    const courses = _.filter(_.orderBy(getCourses(cache, day, locationId, courseTypeId), ['start']), c => now.isBefore(moment(c.start, 'hh:mm')));
 
     return (
         <div className="col p-0">
