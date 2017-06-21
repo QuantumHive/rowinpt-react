@@ -24,7 +24,7 @@ function Cancel({agenda, cache, cancel, match }) {
             <Summary schedule={schedule} cache={cache} />
             {
                 disable
-                ? <button disabled="disabled" role="button" className="btn btn-danger btn-lg btn-block" onClick={() => cancel(match.params.id)}>Afmelden</button>
+                ? <button disabled="disabled" role="button" className="btn btn-danger btn-lg btn-block">Afmelden</button>
                 : <button role="button" className="btn btn-outline-danger btn-lg btn-block" onClick={() => cancel(match.params.id)}>Afmelden</button>
             }
             
