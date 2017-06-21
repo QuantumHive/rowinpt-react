@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom';
 
 function UserRow({ user }) {
     return (
-        <tr>
-            <td><Link to="#">{user.name}</Link></td>
-            <td>{user.email}</td>
-        </tr>
+        <Link to="#" className="list-group-item list-group-item-action">
+            <h5>{user.firstname} {user.lastname}</h5>
+        </Link>
     );
 }
 

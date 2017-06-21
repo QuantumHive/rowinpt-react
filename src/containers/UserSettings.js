@@ -5,10 +5,10 @@ import { Route } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as paths from '../constants/routePaths';
 import * as actions from '../actions/userActions';
-import UserTable from '../components/users/UserTable';
+import Users from '../components/users/Users';
 import NewUser from '../components/users/NewUser';
 
-class Users extends React.Component {
+class UserSettings extends React.Component {
     constructor(props) {
         super(props);
         props.actions.loadUsers();
@@ -17,14 +17,14 @@ class Users extends React.Component {
     render() {
         return (
             <div className="col p-0">
-                <Route exact path={paths.UserSettings} render={props => <UserTable users={this.props.users} {...props} />} />
+                <Route exact path={paths.UserSettings} render={props => <Users users={this.props.users} {...props} />} />
                 <Route exact path={paths.NewUser} render={props => <NewUser  {...props} />} />
             </div>
         );
     }
 }
 
-Users.propTypes = {
+UserSettings.propTypes = {
     users: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
@@ -44,4 +44,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Users);
+)(UserSettings);
