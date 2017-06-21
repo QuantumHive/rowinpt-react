@@ -16,7 +16,7 @@ class Users extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="col p-0">
                 <Route exact path={paths.UserSettings} render={props => <UserTable users={this.props.users} {...props} />} />
                 <Route exact path={paths.NewUser} render={props => <NewUser  {...props} />} />
             </div>
