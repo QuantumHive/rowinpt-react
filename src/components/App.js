@@ -37,7 +37,7 @@ class App extends React.Component {
                 return {
                     primary: {
                         name: 'Klant toevoegen',
-                        url: paths.UserSettings
+                        url: paths.NewUser
                     },
                     secondary: null
                 };

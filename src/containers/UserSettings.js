@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Route } from 'react-router';
 import { bindActionCreators } from 'redux';
+import * as paths from '../constants/routePaths';
 import * as actions from '../actions/userActions';
 import UserTable from '../components/users/UserTable';
+import NewUser from '../components/users/NewUser';
 
 class Users extends React.Component {
     constructor(props) {
@@ -14,7 +17,8 @@ class Users extends React.Component {
     render() {
         return (
             <div>
-                <UserTable users={this.props.users} />
+                <Route exact path={paths.UserSettings} render={props => <UserTable users={this.props.users} {...props} />} />
+                <Route exact path={paths.NewUser} render={props => <NewUser  {...props} />} />
             </div>
         );
     }
