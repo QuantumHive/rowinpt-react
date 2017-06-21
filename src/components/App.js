@@ -49,6 +49,8 @@ class App extends React.Component {
     render() {
         return (
             <div className="d-flex flex-column" id="root">
+                <small style={{position: "fixed", userSelect: "none", cursor: "default", zIndex: "999"}}>v{this.props.version}</small>
+                
                 <header>
                     <NavigationBar />
                 </header>
@@ -60,7 +62,6 @@ class App extends React.Component {
                 <footer>
                     {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
                 </footer>
-                <small style={{position: "fixed", userSelect: "none", cursor: "default"}}>v{this.props.version}</small>
             </div>
         );
     }
