@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function NewUser() {
     return (
@@ -81,13 +80,9 @@ function NewUser() {
                 </select>
             </div>
 
-            <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4">Submit</button>
+            <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4">Aanmaken</button>
         </form>
     );
 }
-
-NewUser.propTypes = {
-    actions: PropTypes.object.isRequired
-};
 
 export default NewUser;
