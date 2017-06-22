@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class NewUser extends React.Component {
     constructor(props) {
@@ -20,11 +21,12 @@ class NewUser extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.value;
         const name = target.name;
 
         switch (name) {
@@ -39,6 +41,12 @@ class NewUser extends React.Component {
                 if (value.length > 4) return;
                 if (value < 0) return;
                 break;
+            case "sex":
+                this.setState({
+                    male: value === "male",
+                    female: value === "female"
+                });
+                return;
         }
 
         this.setState({
@@ -46,9 +54,14 @@ class NewUser extends React.Component {
         });
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.submitCallback(this.state);
+    }
+
     render() {
         return (
-            <form className="col p-3" autoComplete="off">
+            <form className="col p-3" autoComplete="off" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="first-name">Voornaam</label>
                     <input className="form-control" type="text" id="first-name" required="required" name="firstName" value={this.state.firstName} onChange={this.handleChange} />
@@ -91,14 +104,14 @@ class NewUser extends React.Component {
                 <fieldset className="form-group">
                     <legend className="col-form-legend">Geslacht</legend>
                     <label className="custom-control custom-radio">
-                        <input type="radio" className="custom-control-input" name="sex" required="required" checked={this.state.male} onChange={this.handleChange} />
+                        <input type="radio" className="custom-control-input" value="male" name="sex" required="required" checked={this.state.male} onChange={this.handleChange} />
                         <span className="custom-control-indicator" />
                         <span className="custom-control-description">Man</span>
                     </label>
 
 
                     <label className="custom-control custom-radio">
-                        <input type="radio" className="custom-control-input" name="sex" required="required" checked={this.state.female} onChange={this.handleChange} />
+                        <input type="radio" className="custom-control-input" value="female" name="sex" required="required" checked={this.state.female} onChange={this.handleChange} />
                         <span className="custom-control-indicator" />
                         <span className="custom-control-description">Vrouw</span>
                     </label>
@@ -133,6 +146,10 @@ class NewUser extends React.Component {
             </form>
         );
     }
+}
+
+NewUser.propTypes = {
+    submitCallback: PropTypes.func.isRequired
 }
 
 export default NewUser;

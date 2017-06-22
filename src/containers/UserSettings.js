@@ -12,13 +12,17 @@ class UserSettings extends React.Component {
     constructor(props) {
         super(props);
         props.actions.loadUsers();
+        this.addUser = this.addUser.bind(this)
+    }
+
+    addUser(user){
     }
 
     render() {
         return (
             <div className="col p-0">
                 <Route exact path={paths.UserSettings} render={props => <Users users={this.props.users} {...props} />} />
-                <Route exact path={paths.NewUser} render={props => <NewUser  {...props} />} />
+                <Route exact path={paths.NewUser} render={props => <NewUser submitCallback={this.addUser} {...props} />} />
             </div>
         );
     }
