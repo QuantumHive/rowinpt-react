@@ -1,17 +1,21 @@
 import db from './db';
-import _ from 'lodash';
+
+let id = 1;
 
 class UserApi {
     static getAllUsers() {
         return new Promise((resolve) => {
-            resolve(db.users);
+            resolve(db.users.map(u => Object.assign({}, u)));
         });
     }
 
-    static getUserById(/*id*/){
+    static addUser(user){
         return new Promise((resolve) => {
-            const user = _.head(db.users);
-            resolve(user);
+            const newUser = Object.assign({}, user);
+            newUser.id = id;
+            db.users.push(newUser);
+            id++;
+            resolve(newUser);
         });
     }
 }

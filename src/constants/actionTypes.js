@@ -1,4 +1,5 @@
 export const LOAD_USERS = 'LOAD_USERS';
+export const NEW_USER = 'NEW_USER';
 export const SET_COMMAND_PRIMARY = 'SET_COMMAND_PRIMARY';
 export const SET_COMMAND_SECONDARY = 'SET_COMMAND_SECONDARY';
 

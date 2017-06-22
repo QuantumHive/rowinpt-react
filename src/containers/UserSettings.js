@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as paths from '../constants/routePaths';
 import * as actions from '../actions/userActions';
@@ -12,13 +12,23 @@ class UserSettings extends React.Component {
     constructor(props) {
         super(props);
         props.actions.loadUsers();
-        this.addUser = this.addUser.bind(this)
+        this.state = {
+            redirect: false,
+        };
+
+        this.addUser = this.addUser.bind(this);
     }
 
     addUser(user){
+        this.props.actions.addUser(user);
+        this.setState({redirect: true});
     }
 
     render() {
+        if(this.state.redirect){
+            return <Redirect to={paths.default} />;
+        }
+        
         return (
             <div className="col p-0">
                 <Route exact path={paths.UserSettings} render={props => <Users users={this.props.users} {...props} />} />
@@ -30,7 +40,7 @@ class UserSettings extends React.Component {
 
 UserSettings.propTypes = {
     users: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
