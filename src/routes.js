@@ -19,6 +19,6 @@ export default (
         <Route exact path={paths.UserSettings} component={Users} />
         <Route exact path={paths.NewUser} component={NewUser} />
         <Route exact path={paths.EditUser} component={EditUser} />
-        <Route exact path={paths.Schedule} component={Schedule} />
+        <Route path={paths.Schedule} component={Schedule} />
     </Switch>
 );
