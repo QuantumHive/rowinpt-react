@@ -1,6 +1,5 @@
 export default "/";
 export const Profile = "/profile";
-export const Settings = "/settings";
 export const UserSettings = "/settings/users";
 export const NewUser = "/settings/users/new";
 

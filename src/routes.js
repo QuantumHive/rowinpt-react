@@ -5,7 +5,8 @@ import * as paths from './constants/routePaths';
 
 import Dashboard from './containers/Dashboard';
 import Profile from './containers/Profile';
-import UserSettings from './containers/UserSettings';
+import Users from './containers/Users';
+import NewUser from './containers/NewUser';
 
 import Schedule from './containers/Schedule';
 
@@ -13,8 +14,9 @@ import Schedule from './containers/Schedule';
 export default (
     <Switch>
         <Route exact path={paths.default} component={Dashboard} />
-        <Route path={paths.Profile} component={Profile} />
-        <Route path={paths.Settings} component={UserSettings} />
-        <Route path={paths.Schedule} component={Schedule} />
+        <Route exact path={paths.Profile} component={Profile} />
+        <Route exact path={paths.UserSettings} component={Users} />
+        <Route exact path={paths.NewUser} component={NewUser} />
+        <Route exact path={paths.Schedule} component={Schedule} />
     </Switch>
 );
