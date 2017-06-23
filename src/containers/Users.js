@@ -51,7 +51,7 @@ Users.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        users: state.user
+        users: state.users
     };
 }
 

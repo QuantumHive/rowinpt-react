@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function UserRow({ user }) {
     return (
-        <Link to="#" className="list-group-item list-group-item-action">
+        <Link to={`/settings/users/${user.id}`} className="list-group-item list-group-item-action">
             <h5>{user.firstName} {user.lastName}</h5>
         </Link>
     );

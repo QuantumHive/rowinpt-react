@@ -2,6 +2,7 @@ export default "/";
 export const Profile = "/profile";
 export const UserSettings = "/settings/users";
 export const NewUser = "/settings/users/new";
+export const EditUser = "/settings/users/:id";
 
 export const Schedule = "/schedule";
 export const ScheduleLocation = "/schedule/location";
