@@ -24,3 +24,16 @@ export function addUser(user) {
         return userApi.addUser(user).then(user => dispatch(addUserSuccess(user)));
     };
 }
+
+export function editUserSuccess(user) {
+    return {
+        type: type.EDIT_USER,
+        user
+    };
+}
+
+export function editUser(user) {
+    return dispatch => {
+        return userApi.editUser(user).then(user => dispatch(editUserSuccess(user)));
+    };
+}
