@@ -62,9 +62,9 @@ class UserStats extends React.Component {
 
         return (
             <div className="px-2">
-                <Graph data={this.state.weight} options={options} title={"GEWICHT"} subtitle={"Verlies"} badge={"14 kg"} />
-                <Graph data={this.state.fat} options={options} title={"VETGEHALTE"} subtitle={"Verlies"} badge={"24 %"} />
-                <Graph data={this.state.size} options={options} title={"OMVANG"} subtitle={"Verlies"} badge={"7 cm"} />
+                <Graph data={this.state.weight} options={options} title={"GEWICHT"} subtitle={"Totaal"} badge={"14 kg"} />
+                <Graph data={this.state.fat} options={options} title={"VETGEHALTE"} subtitle={"Totaal"} badge={"24 %"} />
+                <Graph data={this.state.size} options={options} title={"OMVANG"} subtitle={"Totaal"} badge={"7 cm"} />
 
                 <div>
                     <hr />
