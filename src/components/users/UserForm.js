@@ -64,7 +64,7 @@ function UserForm(props){
 
                 <fieldset className="form-group">
                     <legend>Abonnementen</legend>
-                    <label htmlFor="attended-training-subscription">Begeleid sporten</label>
+                    <label htmlFor="attended-training-subscription">Begeleid trainen</label>
                     <select className="custom-select form-control" id="attended-training-subscription" name="attendedTrainingSubscription" value={props.user.attendedTrainingSubscription} onChange={props.handleChange}>
                         <option value="">geen</option>
                         <option value="1">1 x per week</option>
@@ -78,7 +78,7 @@ function UserForm(props){
                         <option value="2">2 x per week</option>
                         <option value="3">3 x per week</option>
                     </select>
-                    <label htmlFor="group-training-subscription">Begeleid sporten</label>
+                    <label htmlFor="group-training-subscription">Groepsles</label>
                     <select className="custom-select form-control" id="group-training-subscription" name="groupTrainingSubscription" value={props.user.groupTrainingSubscription} onChange={props.handleChange}>
                         <option value="">geen</option>
                         <option value="1">1 x per week</option>

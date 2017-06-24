@@ -54,7 +54,7 @@ class EditUser extends React.Component {
         if (this.state.redirect) {
             return <Redirect to={paths.UserSettings} />;
         }
-        return <UserForm user={{...this.state.user}} handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
+        return <UserForm user={{...this.state.user}} handleSubmit={this.handleSubmit} handleChange={this.handleChange} />;
     }
 }
 

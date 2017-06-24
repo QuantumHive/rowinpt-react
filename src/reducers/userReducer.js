@@ -15,7 +15,7 @@ export default function userReducer(state = [], action) {
                     ...state.slice(index + 1)
                 ];
 
-                return removedState.map(s => Object.assign({}, s)).concat([Object.assign({}, action.user)])
+                return removedState.map(s => Object.assign({}, s)).concat([Object.assign({}, action.user)]);
             }
         default:
             return state;
