@@ -12,7 +12,7 @@ function UserForm(props){
                     <label htmlFor="last-name">Achternaam</label>
                     <input className="form-control" type="text" id="last-name" required="required" name="lastName" value={props.user.lastName} onChange={props.handleChange} />
                 </div>
-                {props.user.email ?
+                {props.user.email != undefined ?
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input className="form-control" type="email" id="email" required="required" name="email" value={props.user.email} onChange={props.handleChange} />
