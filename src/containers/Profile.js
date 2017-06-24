@@ -14,11 +14,16 @@ class Profile extends React.Component {
             <div className="col p-0">
                 <div className="jumbotron jumbotron-fluid mb-3">
                     <div className="container-fluid">
-                        <div className="justify-content-center d-flex">
-                            <img src={user.avatar} alt="..." className="rounded-circle" />
-                        </div>
-                        <div className="justify-content-center d-flex mt-3">
-                            <p className="lead">{user.name}</p>
+                        <div className="justify-content-start d-flex">
+                            <div>
+                                {user.avatar === undefined ?
+                                    <div className="avatar-circle">
+                                        <span className="initials">{user.name[0]}</span>
+                                    </div> :
+                                    <img src={user.avatar} className="rounded-circle" width="100" height="100" />
+                                }
+                                <p className="lead text-center mt-3">{user.name}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,7 +40,7 @@ Profile.propTypes = {
 
 function mapStateToProps() {
     return {
-        user: { id: 1, name: "Naam", avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/boxmodel/128.jpg" }
+        user: { id: 1, name: "Naam", }
     };
 }
 

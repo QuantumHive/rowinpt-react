@@ -12,3 +12,26 @@ body {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
+
+@mixin avatar($size) {
+    width: $size;
+    height: $size;
+    background-color: SlateGray;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+
+    .initials {
+      position: relative;
+      top: $size*0.25;
+      font-size: $size*0.5;
+      line-height: $size*0.5;
+      color: white;
+      font-weight: bold;
+      cursor: default;
+      user-select: none;
+    }
+}
+
+.avatar-circle { @include avatar(100px); }
