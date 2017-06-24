@@ -87,7 +87,7 @@ function UserForm(props){
                     </select>
                 </fieldset>
 
-                <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4">Aanmaken</button>
+                <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4 mb-2">Aanmaken</button>
             </form>
         );
 }
