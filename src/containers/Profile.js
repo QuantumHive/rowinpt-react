@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/userActions';
 
+import UserStats from '../components/profile/UserStats';
+
 class Profile extends React.Component {
     render() {
         const user = this.props.user;
 
         return (
             <div className="col p-0">
-                <div className="jumbotron jumbotron-fluid">
+                <div className="jumbotron jumbotron-fluid mb-3">
                     <div className="container-fluid">
                         <div className="justify-content-center d-flex">
                             <img src={user.avatar} alt="..." className="rounded-circle" />
@@ -20,6 +22,7 @@ class Profile extends React.Component {
                         </div>
                     </div>
                 </div>
+                <UserStats />
             </div>
         );
     }
@@ -30,9 +33,9 @@ Profile.propTypes = {
     actions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(/*state, ownProps*/) {
+function mapStateToProps() {
     return {
-        user: { id: 1, name: "Hello World", avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/boxmodel/128.jpg" }
+        user: { id: 1, name: "Naam", avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/boxmodel/128.jpg" }
     };
 }
 
