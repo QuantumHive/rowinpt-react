@@ -1,6 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as actions from '../actions/userAsyncActions';
 import UserRow from '../components/users/UserRow';
 
 class Users extends React.Component {
@@ -12,6 +14,10 @@ class Users extends React.Component {
         };
 
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.actions.fetchUsers();
     }
 
     handleSearchInputChange(event) {
@@ -31,30 +37,41 @@ class Users extends React.Component {
                     </span>
                     <input type="text" className="form-control" placeholder="Zoeken" onChange={this.handleSearchInputChange} />
                 </div>
+                { !this.props.isFetching ?
                 <div className="list-group">
                     {
                         this.props.users.map(user => {
                             const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
-                            if(fullName.indexOf(filter) === -1) return;
+                            if (fullName.indexOf(filter) === -1) return;
                             return <UserRow key={user.id} user={user} />;
                         })
                     }
-                </div>
+                </div> : <div className="mt-5 text-center">Loading...</div> }
             </div>
         );
     }
 }
 
 Users.propTypes = {
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
-        users: state.users
+        users: state.usersAsync.items,
+        isFetching: state.usersAsync.isFetching
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
     };
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Users);

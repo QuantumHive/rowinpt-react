@@ -1,9 +1,21 @@
 import db from './db';
 import _ from 'lodash';
 
+import fetch from 'isomorphic-fetch';
+import api from './api';
+
+const usersApi = api + '/users';
+
 let id = 1;
 
 class UserApi {
+
+    static get(){
+        return fetch(usersApi).then(
+            response => response.json()
+        );
+    }
+
     static getAllUsers() {
         return new Promise((resolve) => {
             resolve(db.users.map(u => Object.assign({}, u)));
