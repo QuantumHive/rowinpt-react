@@ -39,9 +39,6 @@ class Users extends React.Component {
                     <input type="text" className="form-control" placeholder="Zoeken" onChange={this.handleSearchInputChange} />
                 </div>
 
-
-
-
                 {!this.props.isFetching ?
                     <div className="list-group">
                         {

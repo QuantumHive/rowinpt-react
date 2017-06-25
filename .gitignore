@@ -41,3 +41,4 @@ dist
 
 # Custom
 src/api/db.json
+.api
