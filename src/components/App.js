@@ -5,21 +5,24 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import * as paths from '../constants/routePaths';
-import * as actions from '../actions/routeActions';
+import * as routeActions from '../actions/routeActions';
+import * as cacheActions from '../actions/cacheActions';
 import defaultRoute from '../routes';
 import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
 
 class App extends React.Component {
     componentDidMount() {
+        this.props.cacheActions.loadCache();
+
         const primary = this.switchPrimaryContent(this.props.routePath);
-        this.props.actions.setPrimaryCommandBar(primary);
+        this.props.routeActions.setPrimaryCommandBar(primary);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.routePath !== nextProps.routePath) {
             const primary = this.switchPrimaryContent(nextProps.routePath);
-            this.props.actions.setPrimaryCommandBar(primary);
+            this.props.routeActions.setPrimaryCommandBar(primary);
         }
     }
 
@@ -68,7 +71,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    actions: PropTypes.object.isRequired,
+    routeActions: PropTypes.object.isRequired,
+    cacheActions: PropTypes.object.isRequired,
     command: PropTypes.object,
     routePath: PropTypes.string.isRequired,
     version: PropTypes.string
@@ -83,7 +87,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        routeActions: bindActionCreators(routeActions, dispatch),
+        cacheActions: bindActionCreators(cacheActions, dispatch)
     };
 }
 

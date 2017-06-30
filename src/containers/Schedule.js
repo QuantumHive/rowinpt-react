@@ -23,7 +23,6 @@ class Schedule extends React.Component {
             nextStep: props.actions.setLocation,
             cancel: null
         };
-        props.actions.loadCache();
 
         this.submit = this.submit.bind(this);
         this.cancel = this.cancel.bind(this);

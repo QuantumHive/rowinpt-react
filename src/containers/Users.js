@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions/userAsyncActions';
+import * as actions from '../actions/userActions';
 import UserRow from '../components/users/UserRow';
 import Spinner from 'react-spinkit';
 
@@ -64,8 +64,8 @@ Users.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        users: state.usersAsync.items,
-        isFetching: state.usersAsync.isFetching
+        users: state.users.items,
+        isFetching: state.users.isFetching
     };
 }
 

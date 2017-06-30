@@ -1,39 +1,45 @@
+import {
+    FETCH_USERS_REQUEST,
+    FETCH_USERS_SUCCESS,
+    ADD_USER_SUCCESS
+ } from '../constants/actionTypes';
 import userApi from '../api/userApi';
-import * as type from '../constants/actionTypes';
 
-export function loadUsersSuccess(users) {
+export function startFetchUsersRequest(){
     return {
-        type: type.LOAD_USERS,
+        type: FETCH_USERS_REQUEST,
+    };
+}
+
+export function fetchUsersSuccess(users){
+    return {
+        type: FETCH_USERS_SUCCESS,
         users
     };
 }
 
-export function loadUsers() {
-    return dispatch => userApi.getAllUsers().then(users => dispatch(loadUsersSuccess(users)));
-}
-
-export function addUserSuccess(user) {
+export function addUserSuccess(user){
     return {
-        type: type.NEW_USER,
+        type: ADD_USER_SUCCESS,
         user
     };
 }
 
-export function addUser(user) {
-    return dispatch => {
-        return userApi.addUser(user).then(user => dispatch(addUserSuccess(user)));
+export function fetchUsers(){
+    return function(dispatch){
+        dispatch(startFetchUsersRequest());
+
+        return userApi.get().then(users => {
+            dispatch(fetchUsersSuccess(users));
+        });
     };
 }
 
-export function editUserSuccess(user) {
-    return {
-        type: type.EDIT_USER,
-        user
-    };
-}
-
-export function editUser(user) {
-    return dispatch => {
-        return userApi.editUser(user).then(user => dispatch(editUserSuccess(user)));
+export function addUser(user){
+    return function(dispatch){
+        return userApi.add(user).then(newId => {
+            user.id = newId;
+            dispatch(addUserSuccess(user));
+        });
     };
 }
