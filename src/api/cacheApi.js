@@ -1,23 +1,26 @@
 import axios from 'axios';
 import api from './api';
 
-import db from './db';
-
 const courseTypeApi = api + '/courseTypes';
 const subscriptionApi = api + '/subscriptions';
+const locationsApi = api + '/locations';
+const coursesApi = api + '/courses';
+const timetablesApi = api + '/timetables';
 
 class CacheApi {
     static refreshCache(){
-        let cache = {
-                locations: db.locations,
-                courses: db.courses,
-                timetable: db.timetable,
-            };
+        let cache = {};
 
         return axios.get(courseTypeApi)
-                    .then(response => cache.courseTypes = response.data)
+                    .then(response => cache.coursetypes = response.data)
                     .then(() => axios.get(subscriptionApi)
                                      .then(response => cache.subscriptions = response.data))
+                    .then(() => axios.get(locationsApi)
+                                     .then(response => cache.locations = response.data))
+                    .then(() => axios.get(coursesApi)
+                                     .then(response => cache.courses = response.data))
+                    .then(() => axios.get(timetablesApi)
+                                     .then(response => cache.timetable = response.data))                                     
                     .then(() => cache);
     }
 }

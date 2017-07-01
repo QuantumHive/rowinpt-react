@@ -1,5 +1,8 @@
-import db from './db';
 import _ from 'lodash';
+
+const db = {
+    agenda: []
+};
 
 let id = 1;
 
