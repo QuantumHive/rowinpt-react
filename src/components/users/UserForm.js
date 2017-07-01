@@ -119,7 +119,7 @@ class UserForm extends React.Component {
                         </label>
                     </fieldset> : false}
 
-                <UserSubscriptionPicker courseTypes={this.props.cache.courseTypes}
+                <UserSubscriptionPicker courseTypes={this.props.cache.coursetypes}
                                         subscriptions={this.props.cache.subscriptions}
                                         handleChange={this.handleSubscriptionChange}
                                         selectedSubscriptions={this.state.user.subscriptions}/>
