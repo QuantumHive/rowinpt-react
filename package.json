@@ -19,12 +19,11 @@
     "lint:watch": "npm run lint -- --watch",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "rimraf ./dist",
-    "prebuild": "npm run clean-dist && npm run lint && npm run hook-api",
+    "prebuild": "npm run clean-dist && npm run lint",
     "build": "babel-node tools/build.js && npm run deploy && npm run open:dist",
     "predeploy": "cd dist && copy index.html 200.html",
     "deploy": "surge --domain rowinpt.surge.sh --project ./dist",
-    "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
-    "hook-api": "babel-node tools/api/hook.js"
+    "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
   "dependencies": {
     "axios": "0.16.2",
