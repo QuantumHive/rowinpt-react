@@ -14,7 +14,9 @@ class UserApi {
     }
 
     static add(user) {
-        return axios.post(userApi, user)
+        return axios.post(userApi, user, {
+            withCredentials: true
+        })
             .then(response => {
                 return response.data;
             });
