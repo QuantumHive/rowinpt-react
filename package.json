@@ -22,7 +22,7 @@
     "prebuild": "npm run clean-dist && npm run lint",
     "build": "babel-node tools/build.js && npm run deploy && npm run open:dist",
     "predeploy": "cd dist && copy index.html 200.html",
-    "deploy": "surge --domain rowinpt.surge.sh --project ./dist",
+    "deploy": "surge --domain https://rowinpt.surge.sh --project ./dist",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
   "dependencies": {

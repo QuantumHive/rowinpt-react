@@ -6,7 +6,10 @@ const refreshApi = api + '/account/refresh';
 
 class UserApi {
     static signin(email, password) {
-        return axios.post(loginApi, { email, password })
+        return axios.post(loginApi, { email, password },
+        {
+            withCredentials: true
+        })
             .then(response => response.data);
     }
 
