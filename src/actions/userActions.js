@@ -37,8 +37,7 @@ export function fetchUsers(){
 
 export function addUser(user){
     return function(dispatch){
-        return userApi.add(user).then(newId => {
-            user.id = newId;
+        return userApi.add(user).then(user => {
             dispatch(addUserSuccess(user));
         });
     };
