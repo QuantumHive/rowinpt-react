@@ -14,8 +14,6 @@ import ScheduleCourse from '../components/schedule/Course';
 import ScheduleConfirm from '../components/schedule/Confirm';
 import ScheduleCancel from '../components/schedule/Cancel';
 
-import * as routeActions from '../actions/routeActions';
-
 import _ from 'lodash';
 
 class Schedule extends React.Component {
@@ -28,16 +26,6 @@ class Schedule extends React.Component {
 
         this.submit = this.submit.bind(this);
         this.cancel = this.cancel.bind(this);
-    }
-
-    componentDidMount() {
-        this.props.routeActions.setPrimaryCommandBar({
-            primary: {
-                name: 'Inplannen',
-                url: paths.ScheduleLocation
-            },
-            secondary: null
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -132,7 +120,6 @@ Schedule.propTypes = {
     routePath: PropTypes.string.isRequired,
     cache: PropTypes.object,
     agenda: PropTypes.array,
-    routeActions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -147,7 +134,6 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(actions, dispatch),
-        routeActions: bindActionCreators(routeActions, dispatch),
     };
 }
 

@@ -1,9 +1,11 @@
-import { LOGIN_SUCCESS } from '../constants/actionTypes';
+import { LOGIN_SUCCESS, ACTIVATE_SUCCESS } from '../constants/actionTypes';
 
-export default function authenticationReducer(state = {isAuthenticated: false}, action){
-    switch(action.type){
+export default function authenticationReducer(state = { isAuthenticated: false, isConfirmed: false }, action) {
+    switch (action.type) {
         case LOGIN_SUCCESS:
-            return {isAuthenticated: true, user: action.user};
+            return { isAuthenticated: true, user: action.user };
+        case ACTIVATE_SUCCESS:
+            return { isConfirmed: true };
         default:
             return state;
     }

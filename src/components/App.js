@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router';
 
 import * as routeActions from '../actions/routeActions';
 import * as cacheActions from '../actions/cacheActions';
@@ -11,6 +12,7 @@ import Routes from '../routes';
 import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
 import LoginForm from './authentication/LoginForm';
+import ActivateAccount from '../containers/ActivateAccount';
 
 class App extends React.Component {
     constructor(props) {
@@ -24,7 +26,6 @@ class App extends React.Component {
         }
 
         this.props.cacheActions.loadCache();
-
         this.props.routeActions.setPrimaryCommandBar(null);
     }
 
@@ -50,19 +51,25 @@ class App extends React.Component {
                 <Routes role={this.props.authenticationContext.user.role} />
             </section>) : <LoginForm handleLogin={this.handleLogin} />;
 
-
         return (
             <div className="d-flex flex-column" id="root">
                 <small style={{ position: "fixed", userSelect: "none", cursor: "default", zIndex: "999" }}>v{this.props.version}</small>
 
-                {navbar}
+                <Switch>
+                    <Route path="/activate/:id/:code" component={ActivateAccount} />
+                    <Route path="/" render={() => navbar} />
+                </Switch>
 
-                {content}
-
+                <Switch>
+                    <Route path="/activate" render={() => false} />
+                    <Route path="/" render={() => content} />
+                </Switch>
+                
                 <footer>
                     {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
                 </footer>
-            </div>
+
+            </div >
         );
     }
 }

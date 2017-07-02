@@ -3,13 +3,27 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import * as paths from '../constants/routePaths';
 import * as actions from '../actions/scheduleActions';
+import * as routeActions from '../actions/routeActions';
 import DashboardList from '../components/dashboard/DashboardList';
 
 import _ from 'lodash';
 import moment from 'moment';
 
 class Dashboard extends React.Component {
+
+
+
+    componentDidMount() {
+        this.props.routeActions.setPrimaryCommandBar({
+            primary: {
+                name: 'Inplannen',
+                url: paths.ScheduleLocation
+            },
+            secondary: null
+        });
+    }
 
     render() {
         const now = moment();
@@ -25,6 +39,7 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
     agenda: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
+    routeActions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -48,6 +63,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(actions, dispatch),
+        routeActions: bindActionCreators(routeActions, dispatch),
     };
 }
 
