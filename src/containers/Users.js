@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/userActions';
 import UserRow from '../components/users/UserRow';
 import Spinner from 'react-spinkit';
+import * as paths from '../constants/routePaths';
+import * as routeActions from '../actions/routeActions';
 
 class Users extends React.Component {
     constructor(props) {
@@ -19,6 +21,13 @@ class Users extends React.Component {
 
     componentDidMount() {
         this.props.actions.fetchUsers();
+        this.props.routeActions.setPrimaryCommandBar({
+            primary: {
+                name: 'Klant toevoegen',
+                url: paths.NewUser
+            },
+            secondary: null
+        });
     }
 
     handleSearchInputChange(event) {
@@ -60,6 +69,7 @@ Users.propTypes = {
     users: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
     actions: PropTypes.object.isRequired,
+    routeActions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -71,7 +81,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(actions, dispatch),
+        routeActions: bindActionCreators(routeActions, dispatch),
     };
 }
 

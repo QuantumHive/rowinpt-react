@@ -19,7 +19,11 @@ function CommandBar({ command }) {
         ? <div className="col-6 text-center py-1" />
         : (
             <div className="col-8 text-center py-1">
-                <Link to={command.primary.url} role="button" className="btn btn-outline-success btn-lg btn-block">{command.primary.name}</Link>
+                {command.primary.url === undefined ?
+                    <button onClick={command.primary.click} role="button" className="btn btn-outline-success btn-lg btn-block">{command.primary.name}</button> :
+                    <Link to={command.primary.url} role="button" className="btn btn-outline-success btn-lg btn-block">{command.primary.name}</Link>
+                }
+                
             </div>);
 
     const secondaryLeft = renderSecondary(command, 'left');

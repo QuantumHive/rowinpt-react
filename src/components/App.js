@@ -4,63 +4,60 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import * as paths from '../constants/routePaths';
 import * as routeActions from '../actions/routeActions';
 import * as cacheActions from '../actions/cacheActions';
-import defaultRoute from '../routes';
+import * as authenticationActions from '../actions/authenticationActions';
+import Routes from '../routes';
 import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
+import LoginForm from './authentication/LoginForm';
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
     componentDidMount() {
+        if (!this.props.authenticationContext.isAuthenticated) {
+            this.props.authenticationActions.refresh();
+        }
+
         this.props.cacheActions.loadCache();
 
-        const primary = this.switchPrimaryContent(this.props.routePath);
-        this.props.routeActions.setPrimaryCommandBar(primary);
+        this.props.routeActions.setPrimaryCommandBar(null);
     }
 
     componentWillReceiveProps(nextProps) {
+        if (!this.props.authenticationContext.isAuthenticated) return;
+
+        this.props.cacheActions.loadCache();
+
         if (this.props.routePath !== nextProps.routePath) {
-            const primary = this.switchPrimaryContent(nextProps.routePath);
-            this.props.routeActions.setPrimaryCommandBar(primary);
+            this.props.routeActions.setPrimaryCommandBar(null);
         }
     }
 
-    switchPrimaryContent(routePath) {
-        switch (routePath) {
-            case paths.default:
-                return {
-                    primary: {
-                        name: 'Inplannen',
-                        url: paths.ScheduleLocation
-                    },
-                    secondary: null
-                };
-            case paths.UserSettings:
-                return {
-                    primary: {
-                        name: 'Klant toevoegen',
-                        url: paths.NewUser
-                    },
-                    secondary: null
-                };
-            default:
-                return null;
-        }
+    handleLogin(email, password) {
+        this.props.authenticationActions.login(email, password);
     }
 
     render() {
+        const navbar = this.props.authenticationContext.isAuthenticated ? <header><NavigationBar role={this.props.authenticationContext.user.role} /></header> : false;
+
+        const content = this.props.authenticationContext.isAuthenticated ? (
+            <section className="col p-0 overflow-y-auto d-flex">
+                <Routes role={this.props.authenticationContext.user.role} />
+            </section>) : <LoginForm handleLogin={this.handleLogin} />;
+
+
         return (
             <div className="d-flex flex-column" id="root">
-                <small style={{position: "fixed", userSelect: "none", cursor: "default", zIndex: "999"}}>v{this.props.version}</small>
-                
-                <header>
-                    <NavigationBar />
-                </header>
+                <small style={{ position: "fixed", userSelect: "none", cursor: "default", zIndex: "999" }}>v{this.props.version}</small>
 
-                <section className="col p-0 overflow-y-auto d-flex">
-                    {defaultRoute}
-                </section>
+                {navbar}
+
+                {content}
 
                 <footer>
                     {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
@@ -75,20 +72,24 @@ App.propTypes = {
     cacheActions: PropTypes.object.isRequired,
     command: PropTypes.object,
     routePath: PropTypes.string.isRequired,
-    version: PropTypes.string
+    version: PropTypes.string,
+    authenticationContext: PropTypes.object.isRequired,
+    authenticationActions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
     return {
         command: state.command,
-        routePath: ownProps.location.pathname
+        routePath: ownProps.location.pathname,
+        authenticationContext: state.authenticationContext
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         routeActions: bindActionCreators(routeActions, dispatch),
-        cacheActions: bindActionCreators(cacheActions, dispatch)
+        cacheActions: bindActionCreators(cacheActions, dispatch),
+        authenticationActions: bindActionCreators(authenticationActions, dispatch)
     };
 }
 

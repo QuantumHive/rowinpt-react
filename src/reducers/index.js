@@ -4,13 +4,15 @@ import schedule from './scheduleReducer';
 import cache from './cacheReducer';
 import agenda from './dashboardReducer';
 import users from './usersReducer';
+import authenticationContext from './authenticationReducer';
 
 const rootReducer = combineReducers({
     command: navigation,
     schedule,
     cache,
     agenda,
-    users
+    users,
+    authenticationContext
 });
 
  export default rootReducer;

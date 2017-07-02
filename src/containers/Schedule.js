@@ -14,6 +14,8 @@ import ScheduleCourse from '../components/schedule/Course';
 import ScheduleConfirm from '../components/schedule/Confirm';
 import ScheduleCancel from '../components/schedule/Cancel';
 
+import * as routeActions from '../actions/routeActions';
+
 import _ from 'lodash';
 
 class Schedule extends React.Component {
@@ -28,13 +30,23 @@ class Schedule extends React.Component {
         this.cancel = this.cancel.bind(this);
     }
 
+    componentDidMount() {
+        this.props.routeActions.setPrimaryCommandBar({
+            primary: {
+                name: 'Inplannen',
+                url: paths.ScheduleLocation
+            },
+            secondary: null
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.routePath !== nextProps.routePath) {
             this.determineNextStepCallback(nextProps.routePath);
         }
         if (nextProps.routePath === paths.ScheduleConfirm) {
             const existingAgenda = _.find(nextProps.agenda, { timetableId: nextProps.schedule.course, date: nextProps.schedule.date.format("D-M-Y") });
-            if(existingAgenda !== undefined){
+            if (existingAgenda !== undefined) {
                 this.setState(prevState => {
                     return {
                         nextStep: prevState.nextStep,
@@ -42,7 +54,7 @@ class Schedule extends React.Component {
                     };
                 });
             }
-        }else{
+        } else {
             this.setState(prevState => {
                 return {
                     nextStep: prevState.nextStep,
@@ -119,7 +131,8 @@ Schedule.propTypes = {
     actions: PropTypes.object.isRequired,
     routePath: PropTypes.string.isRequired,
     cache: PropTypes.object,
-    agenda: PropTypes.array
+    agenda: PropTypes.array,
+    routeActions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -133,7 +146,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(actions, dispatch),
+        routeActions: bindActionCreators(routeActions, dispatch),
     };
 }
 

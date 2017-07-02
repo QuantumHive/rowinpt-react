@@ -5,7 +5,9 @@ const userApi = api + '/users';
 
 class UserApi {
     static get() {
-        return axios.get(userApi)
+        return axios.get(userApi, {
+            withCredentials: true
+        })
             .then(response => {
                 return response.data;
             });
