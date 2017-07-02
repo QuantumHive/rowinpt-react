@@ -1,7 +1,8 @@
 import {
     FETCH_USERS_REQUEST,
     FETCH_USERS_SUCCESS,
-    ADD_USER_SUCCESS
+    ADD_USER_SUCCESS,
+    EDIT_USER_SUCCESS
  } from '../constants/actionTypes';
 import userApi from '../api/userApi';
 
@@ -25,6 +26,13 @@ export function addUserSuccess(user){
     };
 }
 
+export function editUserSuccess(user){
+    return {
+        type: EDIT_USER_SUCCESS,
+        user
+    };
+}
+
 export function fetchUsers(){
     return function(dispatch){
         dispatch(startFetchUsersRequest());
@@ -39,6 +47,14 @@ export function addUser(user){
     return function(dispatch){
         return userApi.add(user).then(user => {
             dispatch(addUserSuccess(user));
+        });
+    };
+}
+
+export function editUser(user){
+    return function(dispatch){
+        return userApi.edit(user).then(user => {
+            dispatch(editUserSuccess(user));
         });
     };
 }
