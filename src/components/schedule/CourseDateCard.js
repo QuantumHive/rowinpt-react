@@ -6,6 +6,14 @@ import * as paths from '../../constants/routePaths';
 import _ from 'lodash';
 import moment from 'moment';
 
+const style = {
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+    marginBottom: "-1px",
+};
+
 function CourseDateCard({ date, step, enabled, cache, schedule }) {
     const today = moment();
     const max = today.clone().add(5, 'w');
@@ -30,11 +38,11 @@ function CourseDateCard({ date, step, enabled, cache, schedule }) {
         </span>);
 
     return today.isSameOrBefore(date, 'd') && date.isSameOrBefore(max, 'd') && enabled && coursesLeft? (
-        <Link to={paths.ScheduleCourse} className="col p-0 d-flex flex-column list-group-item list-group-item-action list-group-item-success" onClick={() => step(date)}>
+        <Link to={paths.ScheduleCourse} className="col p-0 d-flex flex-column list-group-item list-group-item-action list-group-item-success" onClick={() => step(date)} style={style}>
             {content}
         </Link>)
         :
-        <div className="col p-0 d-flex flex-column list-group-item ">
+        <div className="col p-0 d-flex flex-column list-group-item " style={style}>
             {content}
         </div>;
 }
