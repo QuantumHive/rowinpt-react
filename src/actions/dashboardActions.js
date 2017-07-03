@@ -17,7 +17,6 @@ export function loadAgendaSuccess(agenda){
 export function loadAgenda(){
     return function(dispatch){
         dispatch(startLoadAgendaRequest());
-
         return agendaApi.loadAgenda().then(function(agenda){
             dispatch(loadAgendaSuccess(agenda));
         });

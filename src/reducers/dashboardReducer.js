@@ -13,15 +13,12 @@ export default function dashboardReducer(state = {items:[], isLoading: false}, a
                 items: [...action.agenda],
                 isLoading: false
             };
-        // case type.ADD_SCHEDULE:
-        //     return [
-        //         ...state,
-        //         {
-        //             id: action.schedule.id,
-        //             timetableId: action.schedule.timetableId,
-        //             date: action.schedule.date
-        //         }
-        //     ];
+        case type.ADD_SCHEDULE: {
+            return {
+                items: [...state.items, action.schedule],
+                isLoading: false
+            };
+        }
         // case type.DELETE_SCHEDULE:
         //     {
         //         const index = _.findIndex(state, { id: Number(action.scheduleId) });

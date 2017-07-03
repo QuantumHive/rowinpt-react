@@ -33,7 +33,7 @@ class Schedule extends React.Component {
             this.determineNextStepCallback(nextProps.routePath);
         }
         if (nextProps.routePath === paths.ScheduleConfirm) {
-            const existingAgenda = _.find(nextProps.agenda, { timetableId: nextProps.schedule.course, date: nextProps.schedule.date.format("D-M-Y") });
+            const existingAgenda = _.find(nextProps.agenda.items, { timetableId: nextProps.schedule.course, date: nextProps.schedule.date.format("Y-M-D") });
             if (existingAgenda !== undefined) {
                 this.setState(prevState => {
                     return {
@@ -109,7 +109,7 @@ class Schedule extends React.Component {
                     <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
                     <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
-                    <Route path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda} cache={cache} cancel={this.cancel} {...props} />} />
+                    <Route path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda.items} cache={cache} cancel={this.cancel} {...props} />} />
                 </Switch>);
     }
 }
@@ -119,7 +119,7 @@ Schedule.propTypes = {
     actions: PropTypes.object.isRequired,
     routePath: PropTypes.string.isRequired,
     cache: PropTypes.object,
-    agenda: PropTypes.array,
+    agenda: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {

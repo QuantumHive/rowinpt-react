@@ -10,21 +10,10 @@ class AgendaApi {
         .then(response => response.data);
     }
 
-    // static addAgenda(date, timetableId) {
-    //     return new Promise(resolve => {
-    //         const agenda = {
-    //             id: id,
-    //             date: date.format("D-M-Y"),
-    //             timetableId
-    //         };
-
-    //         db.agenda.push(agenda);
-
-    //         id++;
-                     
-    //         resolve(agenda);
-    //     });
-    // }
+    static addAgenda(agenda) {
+        return axios.post(scheduleApi, agenda, cookies)
+            .then(response => response.data);
+    }
 
     // static deleteAgenda(id) {
     //     return new Promise(resolve => {

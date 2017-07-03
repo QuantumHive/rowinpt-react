@@ -36,9 +36,12 @@ class Dashboard extends React.Component {
                 </div>
             );
         }
-        
+
         const now = moment();
-        const agenda = _.filter(this.props.agenda.items, a => now.isSameOrBefore(moment(a.date, "D-M-Y"), 'd'));
+        const agenda = _.orderBy(_.filter(this.props.agenda.items, a => {
+            const date = moment(a.date, "Y-M-DTH:m:s");
+            return now.isSameOrBefore(date, 'd');
+        }), ['date', 'start']);
         return (
             <div className="col p-0 d-flex">
                 <DashboardList agenda={agenda} />
@@ -54,19 +57,6 @@ Dashboard.propTypes = {
 };
 
 function mapStateToProps(state) {
-    // const agenda = _.orderBy(state.agenda.items.map(a => {
-    //     const timetable = _.find(cache.timetable, { id: a.timetableId });
-    //     const course = _.find(cache.courses, { id: timetable.courseId });
-    //     const location = _.find(cache.locations, { id: timetable.locationId });
-    //     return {
-    //         id: a.id,
-    //         date: moment(a.date, "D-M-Y"),
-    //         start: timetable.start,
-    //         end: timetable.end,
-    //         type: course.name,
-    //         location: location.location
-    //     };
-    // }), ['date']);
     return { agenda: state.agenda, cache: state.cache };
 }
 
