@@ -17,7 +17,7 @@ function Routes(props) {
     return (
         <Switch>
             {
-                props.role === "Users"
+                props.role === "User"
                 ? <Route exact path={paths.Agenda} component={Dashboard} />
                 : props.role === "Admin"
                 ? <Route exact path={paths.Users} component={Users} />
@@ -30,7 +30,7 @@ function Routes(props) {
             <Route path={paths.Schedule} component={Schedule} />
 
             {
-                props.role === "Users"
+                props.role === "User"
                 ? <Route exact path={paths.Profile} component={Profile} />
                 : false
             }
