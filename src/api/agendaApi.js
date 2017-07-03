@@ -1,41 +1,38 @@
-import _ from 'lodash';
+import axios from 'axios';
+import api from './api';
 
-const db = {
-    agenda: []
-};
-
-let id = 1;
+const scheduleApi = api + '/schedules';
+const cookies = { withCredentials: true };
 
 class AgendaApi {
     static loadAgenda() {
-        return new Promise(resolve => {
-            resolve(db.agenda);
-        });
+        return axios.get(scheduleApi, cookies)
+        .then(response => response.data);
     }
 
-    static addAgenda(date, timetableId) {
-        return new Promise(resolve => {
-            const agenda = {
-                id: id,
-                date: date.format("D-M-Y"),
-                timetableId
-            };
+    // static addAgenda(date, timetableId) {
+    //     return new Promise(resolve => {
+    //         const agenda = {
+    //             id: id,
+    //             date: date.format("D-M-Y"),
+    //             timetableId
+    //         };
 
-            db.agenda.push(agenda);
+    //         db.agenda.push(agenda);
 
-            id++;
+    //         id++;
                      
-            resolve(agenda);
-        });
-    }
+    //         resolve(agenda);
+    //     });
+    // }
 
-    static deleteAgenda(id) {
-        return new Promise(resolve => {
-            const index = _.findIndex(db.agenda, {id: id});
-            db.agenda.splice(index, 1);
-            resolve(id);
-        });
-    }
+    // static deleteAgenda(id) {
+    //     return new Promise(resolve => {
+    //         const index = _.findIndex(db.agenda, {id: id});
+    //         db.agenda.splice(index, 1);
+    //         resolve(id);
+    //     });
+    // }
 }
 
 export default AgendaApi;
