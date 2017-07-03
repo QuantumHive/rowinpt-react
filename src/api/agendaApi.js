@@ -7,7 +7,7 @@ const cookies = { withCredentials: true };
 class AgendaApi {
     static loadAgenda() {
         return axios.get(scheduleApi, cookies)
-        .then(response => response.data);
+            .then(response => response.data);
     }
 
     static addAgenda(agenda) {
@@ -15,13 +15,10 @@ class AgendaApi {
             .then(response => response.data);
     }
 
-    // static deleteAgenda(id) {
-    //     return new Promise(resolve => {
-    //         const index = _.findIndex(db.agenda, {id: id});
-    //         db.agenda.splice(index, 1);
-    //         resolve(id);
-    //     });
-    // }
+    static deleteAgenda(id) {
+        return axios.delete(scheduleApi + "/" + id, cookies)
+            .then(() => id);
+    }
 }
 
 export default AgendaApi;

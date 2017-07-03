@@ -1,7 +1,7 @@
 import * as type from '../constants/actionTypes';
 import _ from 'lodash';
 
-export default function dashboardReducer(state = {items:[], isLoading: false}, action) {
+export default function dashboardReducer(state = { items: [], isLoading: false }, action) {
     switch (action.type) {
         case type.START_LOAD_DASHBOARD:
             return {
@@ -19,14 +19,17 @@ export default function dashboardReducer(state = {items:[], isLoading: false}, a
                 isLoading: false
             };
         }
-        // case type.DELETE_SCHEDULE:
-        //     {
-        //         const index = _.findIndex(state, { id: Number(action.scheduleId) });
-        //         return [
-        //             ...state.slice(0, index),
-        //             ...state.slice(index + 1)
-        //         ];
-        //     }
+        case type.DELETE_SCHEDULE:
+            {
+                const index = _.findIndex(state.items, { id: Number(action.scheduleId) });
+                return {
+                    items: [
+                        ...state.items.slice(0, index),
+                        ...state.items.slice(index + 1)
+                    ],
+                    isLoading: false,
+                };
+            }
         default:
             return state;
     }
