@@ -7,7 +7,7 @@ function renderSecondary(command, leftRight) {
     return secondaryEnabled
         ? (
             <div className="col text-center py-1">
-                <button type="button" className="btn btn-outline-secondary btn-lg" onClick={command.secondary[leftRight]['callback']}>
+                <button type="button" className="btn btn-outline-primary btn-lg" onClick={command.secondary[leftRight]['callback']}>
                     <i className={command.secondary[leftRight]['icon']} />
                 </button>
             </div>)
