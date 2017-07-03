@@ -32,7 +32,7 @@ class EditUser extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to={paths.UserSettings} />;
+            return <Redirect to={paths.Users} />;
         }
         const user = _.find(this.props.users, {id: parseInt(this.props.match.params.id)});
         return <UserForm user={{...user}} submit="Opslaan" cache={this.props.cache} handleSubmit={this.handleSubmit} new={false} />;

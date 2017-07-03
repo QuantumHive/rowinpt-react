@@ -91,7 +91,7 @@ class Schedule extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to={paths.default} />;
+            return <Redirect push to={paths.Agenda} />;
         }
         if (this.state.cancel) {
             return <Redirect push to={this.state.cancel} />;
@@ -104,12 +104,12 @@ class Schedule extends React.Component {
         return (
             cache === null ? false :
                 <Switch>
-                    <Route path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} locations={cache.locations} />} />
-                    <Route path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} cache={cache} location={schedule.location} />} />
-                    <Route path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} schedule={schedule} />} />
-                    <Route path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
-                    <Route path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
-                    <Route path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda.items} cache={cache} cancel={this.cancel} {...props} />} />
+                    <Route exact path={paths.ScheduleLocation} render={() => <ScheduleLocation nextStep={nextStep} locations={cache.locations} />} />
+                    <Route exact path={paths.ScheduleCourseType} render={() => <ScheduleType nextStep={nextStep} cache={cache} location={schedule.location} />} />
+                    <Route exact path={paths.ScheduleDate} render={() => <ScheduleDate nextStep={nextStep} cache={cache} schedule={schedule} />} />
+                    <Route exact path={paths.ScheduleCourse} render={() => <ScheduleCourse nextStep={nextStep} cache={cache} schedule={schedule} />} />
+                    <Route exact path={paths.ScheduleConfirm} render={() => <ScheduleConfirm schedule={schedule} cache={cache} submit={this.submit} />} />
+                    <Route exact path={paths.ScheduleCancel + "/:id/:date"} render={props => <ScheduleCancel agenda={agenda.items} cache={cache} cancel={this.cancel} {...props} />} />
                 </Switch>);
     }
 }

@@ -31,7 +31,7 @@ class NewUser extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to={paths.UserSettings} />;
+            return <Redirect to={paths.Users} />;
         }
         return <UserForm submit="Aanmaken" cache={this.props.cache} handleSubmit={this.handleSubmit} new={true} />;
     }

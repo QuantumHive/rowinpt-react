@@ -6,14 +6,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
-const version = require('../../package.json').version;
-
 class Root extends React.Component {
     render() {
         return (
             <Provider store={this.props.store}>
                 <BrowserRouter basename="/">
-                    <App version={version} />
+                    <App />
                 </BrowserRouter>
             </Provider>
         );

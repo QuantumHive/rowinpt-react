@@ -1,8 +1,11 @@
 export default "/";
-export const Profile = "/profile";
-export const UserSettings = "/settings/users";
-export const NewUser = "/settings/users/new";
-export const EditUser = "/settings/users/:id";
+
+export const Agenda = "/agenda";
+export const Users = "/users";
+export const Settings = "/settings";
+
+export const NewUser = "/users/new";
+export const EditUser = "/users/:id";
 
 export const Schedule = "/schedule";
 export const ScheduleLocation = "/schedule/location";
@@ -11,3 +14,6 @@ export const ScheduleDate = "/schedule/date";
 export const ScheduleCourse = "/schedule/course";
 export const ScheduleConfirm = "/schedule/confirm";
 export const ScheduleCancel = "/schedule/cancel";
+
+export const Profile = "/profile";
+export const Activate = "/activate/:id/:code";

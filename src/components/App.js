@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { Switch, Route } from 'react-router';
-
+import { Switch, Route, Redirect } from 'react-router';
+import * as paths from '../constants/routePaths';
 import * as routeActions from '../actions/routeActions';
 import * as cacheActions from '../actions/cacheActions';
 import * as authenticationActions from '../actions/authenticationActions';
-import Routes from '../routes';
+import Routes from './common/Routes';
+import Main from './common/Main';
 import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
 import LoginForm from './authentication/LoginForm';
@@ -45,45 +46,47 @@ class App extends React.Component {
     }
 
     render() {
-        const navbar = this.props.authenticationContext.isAuthenticated ? <header><NavigationBar role={this.props.authenticationContext.user.role} /></header> : false;
-
-        const content = this.props.authenticationContext.isAuthenticated ? (
-            <section className="col p-0 overflow-y-auto d-flex">
-                <Routes role={this.props.authenticationContext.user.role} />
-            </section>) : <LoginForm handleLogin={this.handleLogin} />;
-
-
         if (this.props.authenticationContext.await) {
             return (
-                <div className="d-flex flex-column" id="root">
-                    <small style={{ position: "fixed", userSelect: "none", cursor: "default", zIndex: "999" }}>v{this.props.version}</small>
+                <Main>
                     <div className="d-flex justify-content-center col p-0">
                         <Spinner className="align-self-center" name="double-bounce" fadeIn="none" style={{ width: "90px", height: "90px" }} />
                     </div>
-
-                </div >
+                </Main>
             );
         }
 
+        if (!this.props.authenticationContext.isAuthenticated) {
+            return (
+                <Main>
+                    <Switch>
+                        <Route path={paths.Activate} component={ActivateAccount} />
+                        <Route path={paths.default} render={() => <LoginForm handleLogin={this.handleLogin} />} />
+                    </Switch>
+                </Main>
+            );
+        }
+
+        const role = this.props.authenticationContext.user.role;
+        if(this.props.routePath === paths.default){
+            const to = role === "User" ? paths.Agenda : role === "Admin" ? paths.Users : paths.default;
+            return <Redirect to={to} />;
+        }
+
         return (
-            <div className="d-flex flex-column" id="root">
-                <small style={{ position: "fixed", userSelect: "none", cursor: "default", zIndex: "999" }}>v{this.props.version}</small>
+            <Main>
+                <header>
+                    <NavigationBar role={role} />
+                </header>
 
-                <Switch>
-                    <Route path="/activate/:id/:code" component={ActivateAccount} />
-                    <Route path="/" render={() => navbar} />
-                </Switch>
-
-                <Switch>
-                    <Route path="/activate" render={() => false} />
-                    <Route path="/" render={() => content} />
-                </Switch>
+                <section className="col p-0 overflow-y-auto d-flex">
+                    <Routes role={role} />
+                </section>
 
                 <footer>
                     {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
                 </footer>
-
-            </div >
+            </Main>
         );
     }
 }
