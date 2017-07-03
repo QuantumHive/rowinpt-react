@@ -2,6 +2,7 @@ import axios from 'axios';
 import api from './api';
 
 const loginApi = api + '/account/signin';
+const logoutApi = api + '/account/signout';
 const refreshApi = api + '/account/refresh';
 const confirmApi = api + '/account/confirm';
 
@@ -14,6 +15,15 @@ class UserApi {
                     return status < 500;
                 }
             }).then(response => response);
+    }
+
+    static signout() {
+        return axios.post(logoutApi, null, {
+            withCredentials: true,
+            validateStatus: function (status) {
+                return status < 500;
+            }
+        }).then(response => response);
     }
 
     static refresh() {

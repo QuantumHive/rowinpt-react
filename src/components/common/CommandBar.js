@@ -20,8 +20,8 @@ function CommandBar({ command }) {
         : (
             <div className="col-8 text-center py-1">
                 {command.primary.url === undefined ?
-                    <button onClick={command.primary.click} role="button" className="btn btn-outline-success btn-lg btn-block">{command.primary.name}</button> :
-                    <Link to={command.primary.url} role="button" className="btn btn-outline-success btn-lg btn-block">{command.primary.name}</Link>
+                    <button onClick={command.primary.click} role="button" className={`btn btn-outline-${command.primary.color === undefined ? "success" : command.primary.color} btn-lg btn-block`}>{command.primary.name}</button> :
+                    <Link to={command.primary.url} role="button" className={`btn btn-outline-${command.primary.color === undefined ? "success" : command.primary.color} btn-lg btn-block`}>{command.primary.name}</Link>
                 }
                 
             </div>);

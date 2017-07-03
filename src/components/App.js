@@ -55,7 +55,7 @@ class App extends React.Component {
                 </Main>
             );
         }
-
+        
         if (!this.props.authenticationContext.isAuthenticated) {
             return (
                 <Main>

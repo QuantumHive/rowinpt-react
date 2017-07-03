@@ -9,6 +9,7 @@ import Profile from '../../containers/Profile';
 import Users from '../../containers/Users';
 import NewUser from '../../containers/NewUser';
 import EditUser from '../../containers/EditUser';
+import Settings from '../../containers/Settings';
 
 import Schedule from '../../containers/Schedule';
 
@@ -34,6 +35,7 @@ function Routes(props) {
                 : false
             }
             
+            <Route exact path={paths.Settings} component={Settings} />
         </Switch>);
 }
 
