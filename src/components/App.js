@@ -13,6 +13,7 @@ import NavigationBar from '../components/common/NavigationBar';
 import CommandBar from './common/CommandBar';
 import LoginForm from './authentication/LoginForm';
 import ActivateAccount from '../containers/ActivateAccount';
+import Spinner from 'react-spinkit';
 
 class App extends React.Component {
     constructor(props) {
@@ -51,6 +52,19 @@ class App extends React.Component {
                 <Routes role={this.props.authenticationContext.user.role} />
             </section>) : <LoginForm handleLogin={this.handleLogin} />;
 
+
+        if (this.props.authenticationContext.await) {
+            return (
+                <div className="d-flex flex-column" id="root">
+                    <small style={{ position: "fixed", userSelect: "none", cursor: "default", zIndex: "999" }}>v{this.props.version}</small>
+                    <div className="d-flex justify-content-center col p-0">
+                        <Spinner className="align-self-center" name="double-bounce" fadeIn="none" style={{ width: "90px", height: "90px" }} />
+                    </div>
+
+                </div >
+            );
+        }
+
         return (
             <div className="d-flex flex-column" id="root">
                 <small style={{ position: "fixed", userSelect: "none", cursor: "default", zIndex: "999" }}>v{this.props.version}</small>
@@ -64,7 +78,7 @@ class App extends React.Component {
                     <Route path="/activate" render={() => false} />
                     <Route path="/" render={() => content} />
                 </Switch>
-                
+
                 <footer>
                     {this.props.command != null ? <CommandBar command={this.props.command} /> : false}
                 </footer>

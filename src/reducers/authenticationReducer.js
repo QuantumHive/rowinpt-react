@@ -1,11 +1,15 @@
-import { LOGIN_SUCCESS, ACTIVATE_SUCCESS } from '../constants/actionTypes';
+import { LOGIN_SUCCESS, ACTIVATE_SUCCESS, AWAIT_AUTHENTICATION, CANCEL_AWAIT_AUTHENTICATION } from '../constants/actionTypes';
 
-export default function authenticationReducer(state = { isAuthenticated: false, isConfirmed: false }, action) {
+export default function authenticationReducer(state = { isAuthenticated: false, isConfirmed: false, await: true }, action) {
     switch (action.type) {
+        case CANCEL_AWAIT_AUTHENTICATION:
+            return {...state, await: false};
+        case AWAIT_AUTHENTICATION:
+            return {...state, await: true};
         case LOGIN_SUCCESS:
-            return { isAuthenticated: true, user: action.user };
+            return {...state, isAuthenticated: true, user: action.user, await:false };
         case ACTIVATE_SUCCESS:
-            return { isConfirmed: true };
+            return {...state, isConfirmed: true, };
         default:
             return state;
     }
