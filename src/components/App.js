@@ -25,19 +25,18 @@ class App extends React.Component {
     componentDidMount() {
         if (!this.props.authenticationContext.isAuthenticated) {
             this.props.authenticationActions.refresh();
+        } else {
+            this.props.cacheActions.loadCache();
+            this.props.routeActions.setPrimaryCommandBar(null);
         }
-
-        this.props.cacheActions.loadCache();
-        this.props.routeActions.setPrimaryCommandBar(null);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.authenticationContext.isAuthenticated) return;
-
-        this.props.cacheActions.loadCache();
-
-        if (this.props.routePath !== nextProps.routePath) {
-            this.props.routeActions.setPrimaryCommandBar(null);
+        if (this.props.authenticationContext.isAuthenticated) {
+            this.props.cacheActions.loadCache();
+            if (this.props.routePath !== nextProps.routePath) {
+                this.props.routeActions.setPrimaryCommandBar(null);
+            }
         }
     }
 
@@ -46,17 +45,19 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.props.authenticationContext.await) {
-            return (
-                <Main>
-                    <div className="d-flex justify-content-center col p-0">
-                        <Spinner className="align-self-center" name="double-bounce" fadeIn="none" style={{ width: "90px", height: "90px" }} />
-                    </div>
-                </Main>
-            );
-        }
-        
         if (!this.props.authenticationContext.isAuthenticated) {
+            if (this.props.authenticationContext.await) {
+                return (
+                    <Main>
+                        <div className="d-flex justify-content-center col p-0">
+                            <Spinner className="align-self-center" name="double-bounce" fadeIn="none" style={{ width: "90px", height: "90px" }} />
+                        </div>
+                    </Main>
+                );
+            }
+            if(this.props.routePath !== paths.Activate && this.props.routePath !== paths.default){
+                return <Redirect to={paths.default} />;
+            }
             return (
                 <Main>
                     <Switch>
@@ -68,7 +69,7 @@ class App extends React.Component {
         }
 
         const role = this.props.authenticationContext.user.role;
-        if(this.props.routePath === paths.default){
+        if (this.props.routePath === paths.default) {
             const to = role === "User" ? paths.Agenda : role === "Admin" ? paths.Users : paths.default;
             return <Redirect to={to} />;
         }

@@ -2,20 +2,18 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router';
+import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import * as paths from '../constants/routePaths';
 import * as actions from '../actions/authenticationActions';
 import * as routeActions from '../actions/routeActions';
+import Spinner from 'react-spinkit';
 
 class Settings extends React.Component {
     constructor(props) {
         super(props);
 
         this.logout = this.logout.bind(this);
-
-        this.state = {
-            redirect: false
-        };
     }
 
     componentDidMount() {
@@ -31,12 +29,18 @@ class Settings extends React.Component {
 
     logout() {
         this.props.actions.logout();
-        this.setState({redirect: true});
     }
 
     render() {
-        if(this.state.redirect){
-            return <Redirect to={paths.default} />;
+        if (this.props.logout) {
+            if (this.props.await) {
+                return (
+                    <div className="d-flex justify-content-center col p-0">
+                        <Spinner className="align-self-center" name="double-bounce" fadeIn="none" style={{ width: "90px", height: "90px" }} />
+                    </div>
+                );
+            }
+            <Redirect push to={paths.default} />;
         }
         return (
             <div />
@@ -47,10 +51,14 @@ class Settings extends React.Component {
 Settings.propTypes = {
     actions: PropTypes.object.isRequired,
     routeActions: PropTypes.object.isRequired,
+    logout: PropTypes.bool.isRequired,
+    await: PropTypes.bool.isRequired,
 };
 
-function mapStateToProps() {
+function mapStateToProps(state) {
     return {
+        logout: state.authenticationContext.logout,
+        await: state.authenticationContext.logout,
     };
 }
 
@@ -61,7 +69,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Settings);
+)(Settings));

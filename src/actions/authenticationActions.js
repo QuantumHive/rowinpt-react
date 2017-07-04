@@ -70,6 +70,8 @@ export function activateAccount(info) {
 
 export function logout(){
     return function(dispatch){
+        dispatch(startRefresh());
+        
         return accountApi.signout().then(response => {
             if(response.status === 200){
                 dispatch(logoutSuccess());
