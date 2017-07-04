@@ -23,7 +23,7 @@ class Users extends React.Component {
         this.props.actions.fetchUsers();
         this.props.routeActions.setPrimaryCommandBar({
             primary: {
-                name: 'Klant toevoegen',
+                name: 'User toevoegen',
                 url: paths.NewUser
             },
             secondary: null

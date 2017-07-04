@@ -55,7 +55,7 @@ class App extends React.Component {
                     </Main>
                 );
             }
-            if(this.props.routePath !== paths.Activate && this.props.routePath !== paths.default){
+            if(this.props.routePath.split("/")[1] !== paths.Activate.split("/")[1] && this.props.routePath !== paths.default){
                 return <Redirect to={paths.default} />;
             }
             return (
