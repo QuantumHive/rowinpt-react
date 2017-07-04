@@ -39,8 +39,8 @@ class Dashboard extends React.Component {
 
         const now = moment();
         const agenda = _.orderBy(_.filter(this.props.agenda.items, a => {
-            const date = moment(a.date, "Y-M-DTH:m:s");
-            return now.isSameOrBefore(date, 'd');
+            const date = moment(a.date+ " " + a.end, "Y-M-D H:m:s");
+            return now.isSameOrBefore(date, 'minute');
         }), ['date', 'start']);
         return (
             <div className="col p-0 d-flex">
