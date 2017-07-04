@@ -69,13 +69,14 @@ class App extends React.Component {
         }
 
         const role = this.props.authenticationContext.user.role;
+
         if (this.props.routePath === paths.default) {
             const to = role === "User" ? paths.Agenda : role === "Admin" ? paths.Users : paths.default;
             return <Redirect to={to} />;
         }
 
         return (
-            <Main>
+            <Main role={role}>
                 <header>
                     <NavigationBar role={role} />
                 </header>
