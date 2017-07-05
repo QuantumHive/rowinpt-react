@@ -37,7 +37,7 @@ class Agenda extends React.Component {
                         {
                             this.props.work.items.map((work, i) => {
                                 return (
-                                    <Link key={i} to={"/modlist/" + i} className="list-group-item list-group-item-action d-flex flex-nowrap py-2 pl-3 pr-0">
+                                    <Link key={i} to={"/modlist/" + i} className="list-group-item list-group-item-action d-flex flex-nowrap justify-content-between py-2 pl-3 pr-0">
                                         <div className="d-flex flex-column align-items-start flex-nowrap">
                                             <div className="d-flex flex-row flex-nowrap">
                                                 <p className="lead mb-1">{moment(work.date, "Y-M-D").format("dd, D-M-Y")}</p>
@@ -55,7 +55,7 @@ class Agenda extends React.Component {
 
                                             </div>
                                         </div>
-                                        <div className="badge badge-pill badge-default ml-4">
+                                        <div className="badge badge-pill badge-default mr-5">
                                             {work.registeredUsers.length}
                                         </div>
                                     </Link>
