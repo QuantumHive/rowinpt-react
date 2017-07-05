@@ -1,6 +1,7 @@
 export default "/";
 
 export const Agenda = "/agenda";
+export const Work = "/work";
 export const Users = "/users";
 export const Settings = "/settings";
 
@@ -17,3 +18,4 @@ export const ScheduleCancel = "/schedule/cancel";
 
 export const Profile = "/profile";
 export const Activate = "/activate/:id/:code";
+export const ModList = "/modlist/:id";

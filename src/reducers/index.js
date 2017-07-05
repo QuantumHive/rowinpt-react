@@ -3,6 +3,7 @@ import navigation from './navigationReducer';
 import schedule from './scheduleReducer';
 import cache from './cacheReducer';
 import agenda from './dashboardReducer';
+import work from './workReducer';
 import users from './usersReducer';
 import authenticationContext from './authenticationReducer';
 
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     cache,
     agenda,
     users,
-    authenticationContext
+    authenticationContext,
+    work
 });
 
  export default rootReducer;

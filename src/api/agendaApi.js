@@ -19,6 +19,11 @@ class AgendaApi {
         return axios.delete(scheduleApi + "/" + id, cookies)
             .then(() => id);
     }
+
+    static loadWork(){
+        return axios.get(scheduleApi + "/getwork", cookies)
+            .then(response => response);
+    }
 }
 
 export default AgendaApi;

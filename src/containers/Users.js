@@ -7,6 +7,7 @@ import UserRow from '../components/users/UserRow';
 import Spinner from 'react-spinkit';
 import * as paths from '../constants/routePaths';
 import * as routeActions from '../actions/routeActions';
+import _ from 'lodash';
 
 class Users extends React.Component {
     constructor(props) {
@@ -51,7 +52,7 @@ class Users extends React.Component {
                 {!this.props.isFetching ?
                     <div className="list-group">
                         {
-                            this.props.users.map(user => {
+                            _.orderBy(this.props.users, ['firstName', 'lastName']).map(user => {
                                 const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
                                 if (fullName.indexOf(filter) === -1) return;
                                 return <UserRow key={user.id} user={user} />;
