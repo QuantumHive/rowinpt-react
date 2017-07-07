@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
         const agenda = _.orderBy(_.filter(this.props.agenda.items, a => {
             const date = moment(a.date+ " " + a.end, "Y-M-D H:m:s");
             return now.isSameOrBefore(date, 'minute');
-        }), ['date', 'start']);
+        }), [a => moment(a.date, "Y-M-D").format("YYYYMMDD"), 'start']);
         return (
             <div className="col p-0 d-flex">
                 <DashboardList agenda={agenda} />
