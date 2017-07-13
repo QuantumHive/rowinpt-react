@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 import InlineDateControl from "../common/formcontrols/InlineDateControl";
 import UserSubscriptionPicker from "./UserSubscriptionPicker";
 
+import Moment from "moment";
+
 class UserForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             user: props.user === undefined ? {
                 firstName: "",
@@ -15,7 +16,7 @@ class UserForm extends React.Component {
                 email: "",
                 mobile: "",
                 birthdate: "",
-                startdate: "",
+                startdate: Moment().format(),
                 customerId: "",
                 male: null,
                 female: null,
@@ -137,6 +138,7 @@ class UserForm extends React.Component {
                     selectedSubscriptions={this.state.user.subscriptions} />
 
                 {this.props.newUser ? <InlineDateControl label="Startdatum"
+                    date={this.state.user.startdate}
                     handleChange={this.handleStartdate}
                     required={true} /> : false}
 

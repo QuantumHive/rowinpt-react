@@ -13,7 +13,6 @@ class UserApi {
     }
 
     static add(user) {
-        console.log(user);
         return Axios.post(userApi, user, cookies)
             .then(response => {
                 return response.data;
