@@ -62,10 +62,15 @@ class ActivateAccount extends React.Component {
         const formControlDanger = this.state.attempt ? "form-control form-control-danger" : "form-control";
         return (
             <form className="col p-3 mt-3" autoComplete="off" onSubmit={this.handleSubmit}>
-                <h2>Activeer je account</h2>
+                <h2>
+                    Activeer je account
+                    <p>
+                        <small className="text-muted">Maak hieronder je nieuwe wachtwoord aan</small>
+                    </p>
+                </h2>
                 <div className={hasDanger}>
-                    <label htmlFor="password">Wachtwoord</label>
-                    <input type="password" className={formControlDanger} id="password" name="password" placeholder="Wachtwoord" required="required" onChange={this.handleChange}/>
+                    <label htmlFor="password">Nieuwe wachtwoord</label>
+                    <input type="password" className={formControlDanger} id="password" name="password" placeholder="Nieuwe wachtwoord" required="required" onChange={this.handleChange}/>
                 </div>
 
                 <div className={hasDanger}>
