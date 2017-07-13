@@ -107,7 +107,7 @@ class UserForm extends React.Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="customerid">Klantnummer</label>
-                    <input className="form-control" type="number" id="customerid" required="required" name="customerId" value={this.state.user.customerId} onChange={this.handleChange} />
+                    <input className="form-control" type="number" id="customerid" name="customerId" value={this.state.user.customerId} onChange={this.handleChange} />
                 </div>
 
                 <InlineDateControl label="Geboortedatum"
