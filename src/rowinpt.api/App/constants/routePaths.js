@@ -17,5 +17,5 @@ export const ScheduleConfirm = "/schedule/confirm";
 export const ScheduleCancel = "/schedule/cancel";
 
 export const Profile = "/profile";
-export const Activate = "/activate/:id/:code";
+export const Activate = "/activate";
 export const ModList = "/modlist/:id";

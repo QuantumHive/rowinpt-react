@@ -75,7 +75,7 @@ namespace rowinpt.api
                 await userManager.AddToRoleAsync(user, Role.User);
 
                 var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                var url = $@"https://rowinpt-api.azurewebsites.net/activate/{user.Id}/{WebUtility.UrlEncode(code)}";
+                var url = $@"https://rowinpt-api.azurewebsites.net/activate?id={user.Id}&code={WebUtility.UrlEncode(code)}";
                 var message = new MailMessage
                 {
                     ToAddress = userViewModel.Email,

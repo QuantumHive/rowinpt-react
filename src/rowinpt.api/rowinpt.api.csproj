@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/e0fabf58-4066-402f-af89-8fb258cdfa1e/resourcegroups/rowinpt-rg/providers/microsoft.insights/components/rowinpt.api.ai</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/e0fabf58-4066-402f-af89-8fb258cdfa1e/resourceGroups/rowinpt-rg/providers/microsoft.insights/components/rowinpt.api.ai</ApplicationInsightsAnnotationResourceId>
-    <AssemblyVersion>1.1.1</AssemblyVersion>
+    <AssemblyVersion>1.1.2</AssemblyVersion>
   </PropertyGroup>
   
   <ItemGroup>

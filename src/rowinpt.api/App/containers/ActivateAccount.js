@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
-import {Redirect} from 'react-router';
-
-import * as actions from '../actions/authenticationActions';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
+import {Redirect} from "react-router";
+import QueryString from "query-string";
+import * as actions from "../actions/authenticationActions";
 
 class ActivateAccount extends React.Component {
     constructor(props) {
         super(props);
-
+        const parsed = QueryString.parse(props.location.search);
         this.state = {
-            id: props.match.params.id,
-            code: props.match.params.code,
+            id: parsed.id,
+            code: parsed.code,
             password: "",
             repeat: "",
             attempt: false

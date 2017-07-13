@@ -72,7 +72,7 @@ namespace rowinpt.api
 
             if (ValidateUserforConfirmation(user))
             {
-                var result = await userManager.ConfirmEmailAsync(user, WebUtility.UrlDecode(activationViewModel.Code));
+                var result = await userManager.ConfirmEmailAsync(user, activationViewModel.Code);
                 if (result == IdentityResult.Success)
                 {
                     await userManager.AddPasswordAsync(user, activationViewModel.Password);
