@@ -49,6 +49,10 @@
   <ItemGroup>
     <Content Remove="App\**" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="wwwroot\rowinpt_logo_re_website_36.png" />
+  </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="XCOPY &quot;$(ProjectDir)Migrations\Sql\*.sql&quot; &quot;$(TargetDir)Migrations\Sql\&quot; /F/Y" />
