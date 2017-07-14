@@ -13,6 +13,8 @@ namespace rowinpt.api.ViewModels
         public int CourseId { get; set; }
         public int LocationId { get; set; }
 
+        public string Trainer { get; set; }
+
         public static TimetableViewModel Map(Timetable timetable)
         {
             return new TimetableViewModel
@@ -23,6 +25,7 @@ namespace rowinpt.api.ViewModels
                 Day = timetable.DayOfWeek,
                 Start = timetable.StartTime.ToString(@"hh\:mm"),
                 End = timetable.EndTime.ToString(@"hh\:mm"),
+                Trainer = timetable.User.FirstName,
             };
         }
     }

@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import * as paths from '../../constants/routePaths';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import * as paths from "../../constants/routePaths";
 
-import _ from 'lodash';
-import moment from 'moment';
+import _ from "lodash";
+import moment from "moment";
 
 function getCourses(cache, day, locationId, courseTypeId) {
     const timetable = _.filter(cache.timetable, function (t) {
@@ -18,7 +18,8 @@ function getCourses(cache, day, locationId, courseTypeId) {
             name: course.name,
             start: t.start,
             end: t.end,
-            courseTypeId: course.courseTypeId
+            courseTypeId: course.courseTypeId,
+            trainer: t.trainer
         };
     }), function(t) {
         return t.courseTypeId === courseTypeId;
@@ -31,9 +32,9 @@ function Course({ nextStep, cache, schedule }) {
     const locationId = schedule.location;
     const now = moment();
 
-    let courses = _.orderBy(getCourses(cache, day, locationId, courseTypeId), ['start']);
-    if(now.isSame(schedule.date, 'd')){
-        courses = _.filter(courses, c => now.isBefore(moment(c.start, 'hh:mm')));
+    let courses = _.orderBy(getCourses(cache, day, locationId, courseTypeId), ["start"]);
+    if(now.isSame(schedule.date, "d")){
+        courses = _.filter(courses, c => now.isBefore(moment(c.start, "hh:mm")));
     }
 
     return (
@@ -51,6 +52,7 @@ function Course({ nextStep, cache, schedule }) {
                             </div>
                             <div className="align-self-center col-10">
                                 <p className="mb-0">{course.name}</p>
+                                <p className="mb-0">Trainer: <strong>{course.trainer}</strong></p>
                             </div>
                         </Link>
                     );

@@ -21,7 +21,7 @@ namespace rowinpt.api
         [HttpGet]
         public async Task<IEnumerable<TimetableViewModel>> Get()
         {
-            var timetables = await dbContext.Timetables.Where(t => t.Active).ToListAsync();
+            var timetables = await dbContext.Timetables.Include(t => t.User).Where(t => t.Active).ToListAsync();
             var results = timetables.Select(TimetableViewModel.Map);
             return results;
         }
