@@ -12,6 +12,7 @@ namespace rowinpt.api.ViewModels
         public DateTime Date { get; set; }
         public TimeSpan Start { get; set; }
         public TimeSpan End { get; set; }
+        public string Trainer { get; set; }
 
         public static ScheduleViewModel Map(Schedule schedule)
         {
@@ -24,6 +25,7 @@ namespace rowinpt.api.ViewModels
                 Date = schedule.Date,
                 Start = schedule.Timetable.StartTime,
                 End = schedule.Timetable.EndTime,
+                Trainer = schedule.Timetable.User.FirstName,
             };
         }
 

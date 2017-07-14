@@ -35,6 +35,7 @@ namespace rowinpt.api
                 .Include(s => s.Timetable)
                 .Include(s => s.Timetable.Location)
                 .Include(s => s.Timetable.Course)
+                .Include(s => s.Timetable.User)
                 .Where(s => s.UserId == currentUserId)
                 .Where(s => s.Date >= DateTime.Today)
                 .ToListAsync();

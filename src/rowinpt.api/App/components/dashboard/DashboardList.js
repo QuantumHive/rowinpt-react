@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import DashboardCard from './DashboardCard';
-import { Link } from 'react-router-dom';
-import * as paths from '../../constants/routePaths';
+import React from "react";
+import PropTypes from "prop-types";
+import DashboardCard from "./DashboardCard";
+import { Link } from "react-router-dom";
+import * as paths from "../../constants/routePaths";
 
 function DashboardList({ agenda }) {
     return (

@@ -1,5 +1,5 @@
-import * as type from '../constants/actionTypes';
-import _ from 'lodash';
+import * as type from "../constants/actionTypes";
+import _ from "lodash";
 
 export default function dashboardReducer(state = { items: [], isLoading: false }, action) {
     switch (action.type) {

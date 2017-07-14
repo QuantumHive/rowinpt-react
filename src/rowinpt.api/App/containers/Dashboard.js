@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-import * as paths from '../constants/routePaths';
-import * as actions from '../actions/dashboardActions';
-import * as routeActions from '../actions/routeActions';
-import DashboardList from '../components/dashboard/DashboardList';
+import * as paths from "../constants/routePaths";
+import * as actions from "../actions/dashboardActions";
+import * as routeActions from "../actions/routeActions";
+import DashboardList from "../components/dashboard/DashboardList";
 
-import _ from 'lodash';
-import moment from 'moment';
-import Spinner from 'react-spinkit';
+import _ from "lodash";
+import moment from "moment";
+import Spinner from "react-spinkit";
 
 class Dashboard extends React.Component {
     componentDidMount() {
@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
 
         this.props.routeActions.setPrimaryCommandBar({
             primary: {
-                name: 'Inplannen',
+                name: "Inplannen",
                 url: paths.ScheduleLocation
             },
             secondary: null
@@ -40,8 +40,8 @@ class Dashboard extends React.Component {
         const now = moment();
         const agenda = _.orderBy(_.filter(this.props.agenda.items, a => {
             const date = moment(a.date+ " " + a.end, "Y-M-D H:m:s");
-            return now.isSameOrBefore(date, 'minute');
-        }), [a => moment(a.date, "Y-M-D").format("YYYYMMDD"), 'start']);
+            return now.isSameOrBefore(date, "minute");
+        }), [a => moment(a.date, "Y-M-D").format("YYYYMMDD"), "start"]);
         return (
             <div className="col p-0 d-flex">
                 <DashboardList agenda={agenda} />
