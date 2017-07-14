@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 function Summary({schedule}) {
     return (
@@ -12,6 +12,7 @@ function Summary({schedule}) {
                     <tr><td>{schedule.date.format("dddd, D MMMM Y")}</td></tr>
                     <tr><td>{schedule.start} - {schedule.end}</td></tr>
                     <tr><td>{schedule.course}</td></tr>
+                    <tr><td>{schedule.trainer}</td></tr>
                 </tbody>
             </table>
         </div>

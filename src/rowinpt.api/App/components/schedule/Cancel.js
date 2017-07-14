@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Summary from './Summary';
-import _ from 'lodash';
-import moment from 'moment';
+import React from "react";
+import PropTypes from "prop-types";
+import Summary from "./Summary";
+import _ from "lodash";
+import Moment from "moment";
 
 function Cancel({agenda, cache, cancel, match }) {
     const schedule = _.find(agenda, {id: Number(match.params.id)});
@@ -14,14 +14,15 @@ function Cancel({agenda, cache, cancel, match }) {
     const scheduleView = {
         location: location.location,
         courseType: courseType.name,
-        date: moment(match.params.date, "D-M-Y"),
+        date: Moment(match.params.date, "D-M-Y"),
         start: timetable.start,
         end: timetable.end,
         course: course.name,
+        trainer: timetable.trainer
     };
 
-    const courseDate = moment(match.params.date + " " + timetable.start, "D-M-Y hh:mm");
-    const disable = moment().add(24, 'h').isAfter(courseDate);
+    const courseDate = Moment(match.params.date + " " + timetable.start, "D-M-Y hh:mm");
+    const disable = Moment().add(24, "h").isAfter(courseDate);
 
     return (
         <div className="col text-center pt-3">

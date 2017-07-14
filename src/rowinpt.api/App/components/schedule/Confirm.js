@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Summary from './Summary';
-import _ from 'lodash';
-import moment from 'moment';
+import React from "react";
+import PropTypes from "prop-types";
+import Summary from "./Summary";
+import _ from "lodash";
+import Moment from "moment";
 
 function Confirm({ schedule, cache, submit }) {
     const location = _.find(cache.locations, {id: schedule.location});
@@ -13,9 +13,10 @@ function Confirm({ schedule, cache, submit }) {
         location: location.location,
         courseType: courseType.name,
         start: timetable.start,
-        date: moment(schedule.date, "D-M-Y"),
+        date: Moment(schedule.date, "D-M-Y"),
         end: timetable.end,
         course: course.name,
+        trainer: timetable.trainer
     };
 
     return (
