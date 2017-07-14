@@ -7,6 +7,8 @@ module.exports = {
         extensions: ["*", ".js"]
     },
 
+    devtool: "eval-source-map",
+
     context: path.resolve(__dirname, "./App"),
     entry: { main: "./index.js" },
     output: {

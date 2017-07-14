@@ -1,12 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import moment from "moment";
 
-import * as paths from '../../constants/routePaths';
+import * as paths from "../../constants/routePaths";
 
 function DashboardCard({ schedule }) {
-    console.log(schedule);
     const date = moment(schedule.date, "Y-M-D");
     return (
         <Link to={`${paths.ScheduleCancel}/${schedule.id}/${date.format("D-M-Y")}`} className="list-group-item list-group-item-action d-flex flex-column align-items-start flex-nowrap">
