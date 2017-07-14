@@ -54,7 +54,7 @@ class Users extends React.Component {
                     <div className="col p-0">
                         <div className="list-group">
                             {
-                                _.orderBy(this.props.users, ["firstName", "lastName"]).map(user => {
+                                _.orderBy(this.props.users, ["role", "firstName", "lastName"]).map(user => {
                                     const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
                                     if (fullName.indexOf(filter) === -1) return;
                                     return <UserRow key={user.id} user={user} />;
