@@ -5,13 +5,16 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
+import ScrollToTop from "./scrollToTop";
 
 class Root extends React.Component {
     render() {
         return (
             <Provider store={this.props.store}>
                 <BrowserRouter basename="/">
-                    <App />
+                    <ScrollToTop>
+                        <App />
+                    </ScrollToTop>
                 </BrowserRouter>
             </Provider>
         );

@@ -81,7 +81,7 @@ class App extends React.Component {
                     <NavigationBar role={role} />
                 </header>
 
-                <section className="col p-0 overflow-y-auto d-flex">
+                <section className="col p-0 overflow-y-auto d-flex" id="content">
                     <Routes role={role} />
                 </section>
 
