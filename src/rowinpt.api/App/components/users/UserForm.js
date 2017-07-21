@@ -23,7 +23,8 @@ class UserForm extends React.Component {
                 female: null,
                 subscriptions: [],
                 emailConfirmed: false
-            } : props.user
+            } : props.user,
+            isDirty: false
         };
 
         if (this.state.user.customerId === null) {
@@ -73,6 +74,11 @@ class UserForm extends React.Component {
             });
             return;
         }
+
+        if (name === "email") {
+            this.setState({ isDirty: true });
+        }
+
         this.setState(prevState => {
             const newState = { ...prevState };
             newState.user[name] = value;
@@ -150,7 +156,7 @@ class UserForm extends React.Component {
                     required={true} /> : false}
 
                 {this.props.newUser || !this.state.user.emailConfirmed ?
-                    <button type="button" className="btn btn-outline-warning btn-block btn-lg mt-4 mb-2" onClick={this.resendActivation}>Opnieuw activeren</button>
+                    <button type="button" className="btn btn-outline-warning btn-block btn-lg mt-4 mb-2" onClick={this.resendActivation} disabled={this.state.isDirty}>Opnieuw activeren</button>
                     : false}
 
                 <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4 mb-2">{this.props.submit}</button>
