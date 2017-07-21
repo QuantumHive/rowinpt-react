@@ -112,7 +112,8 @@ namespace rowinpt.api
 
             if (!destination.EmailConfirmed)
             {
-                destination.Email = userViewModel.Email;
+                await userManager.SetUserNameAsync(destination, userViewModel.Email);
+                await userManager.SetEmailAsync(destination, userViewModel.Email);
             }
 
             await dbContext.SaveChangesAsync();
@@ -121,6 +122,15 @@ namespace rowinpt.api
             {
                 await SendActivationMail(userViewModel.Email, destination);
             }
+
+            return new NoContentResult();
+        }
+
+        [HttpPatch("resend/activation/{email}")]
+        public async Task<IActionResult> ResendActivationMAil(string email)
+        {
+            var user = await userManager.FindByNameAsync(email);
+            await SendActivationMail(email, user);
 
             return new NoContentResult();
         }

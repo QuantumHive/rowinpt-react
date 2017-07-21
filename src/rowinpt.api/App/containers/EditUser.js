@@ -34,7 +34,7 @@ class EditUser extends React.Component {
     }
 
     handleResendActivation(email) {
-        Axios.post("/api/account/resend/activation", email).then(() => {
+        Axios.patch("/api/users/resend/activation/" + email).then(() => {
             this.setState({
                 redirect: true
             });
