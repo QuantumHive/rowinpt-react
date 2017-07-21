@@ -117,6 +117,12 @@ namespace rowinpt.api
 
             destination.UserSubscriptions.AddRange(source.UserSubscriptions);
             destination.UserCourseTypes.AddRange(source.UserCourseTypes);
+
+            if (!destination.EmailConfirmed)
+            {
+                destination.Email = userViewModel.Email;
+            }
+
             await dbContext.SaveChangesAsync();
 
             return new NoContentResult();
