@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -74,16 +73,7 @@ namespace rowinpt.api
             {
                 await userManager.AddToRoleAsync(user, Role.User);
 
-                var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                var url = $@"https://rowinpt-api.azurewebsites.net/activate?id={user.Id}&code={WebUtility.UrlEncode(code)}";
-                var message = new MailMessage
-                {
-                    ToAddress = userViewModel.Email,
-                    Subject = "Je persoonlijke account",
-                    PlainTextContent = string.Format(MailTemplate.ActivationPlainText, user.FirstName, url),
-                    HtmlContent = string.Format(MailTemplate.ActivationHtml, user.FirstName, url)
-                };
-                await emailService.SendAsync(message);
+                await SendActivationMail(userViewModel.Email, user);
 
                 return CreatedAtRoute("GetUser", new { id = user.Id }, UserViewModel.Map(user));
             }
@@ -118,6 +108,8 @@ namespace rowinpt.api
             destination.UserSubscriptions.AddRange(source.UserSubscriptions);
             destination.UserCourseTypes.AddRange(source.UserCourseTypes);
 
+            var resendActivation = destination.Email != userViewModel.Email;
+
             if (!destination.EmailConfirmed)
             {
                 destination.Email = userViewModel.Email;
@@ -125,7 +117,26 @@ namespace rowinpt.api
 
             await dbContext.SaveChangesAsync();
 
+            if (resendActivation)
+            {
+                await SendActivationMail(userViewModel.Email, destination);
+            }
+
             return new NoContentResult();
+        }
+
+        private async Task SendActivationMail(string email, User user)
+        {
+            var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var url = $@"https://rowinpt-api.azurewebsites.net/activate?id={user.Id}&code={WebUtility.UrlEncode(code)}";
+            var message = new MailMessage
+            {
+                ToAddress = email,
+                Subject = "Je persoonlijke account",
+                PlainTextContent = string.Format(MailTemplate.ActivationPlainText, user.FirstName, url),
+                HtmlContent = string.Format(MailTemplate.ActivationHtml, user.FirstName, url)
+            };
+            await emailService.SendAsync(message);
         }
     }
 }
