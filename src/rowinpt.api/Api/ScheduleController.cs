@@ -96,18 +96,6 @@ namespace rowinpt.api
                 return BadRequest();
             }
 
-            var subscription = user.UserSubscriptions.Single(us => us.Subscription.CourseTypeId == courseTypeId).Subscription;
-            if (subscription.Type != SubscriptionType.Unrestricted)
-            {
-                var maxEntriesAllowed = (int) subscription.Type * 4;
-                var currentEntriesAmount = await dbContext.Schedules
-                    .Where(s => s.UserId == currentUserId && s.Date >= DateTime.Today).CountAsync();
-                if (currentEntriesAmount >= maxEntriesAllowed)
-                {
-                    return BadRequest();
-                }
-            }
-
             var newSchedule = scheduleViewModel.ToEntity(currentUserId, timeTable);
             await dbContext.Schedules.AddAsync(newSchedule);
             await dbContext.SaveChangesAsync();
@@ -131,8 +119,6 @@ namespace rowinpt.api
 
             return new NoContentResult();
         }
-
-
 
         [HttpGet("getwork")]
         [Authorize(Roles = Role.Admin + "," + Role.Mod, ActiveAuthenticationSchemes = Scheme.Authentication)]
