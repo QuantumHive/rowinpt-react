@@ -38,6 +38,7 @@ namespace rowinpt.api.ViewModels
                     .ToList(),
                 RoleId = user.Roles.Single().RoleId,
                 CustomerId = user.CustomerId,
+                Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed,
             };
         }

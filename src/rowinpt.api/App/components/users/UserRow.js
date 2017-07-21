@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function UserRow({ user }) {
     console.log(user.emailconfirmed);
     return (
-        <Link to={`/users/${user.id}`} className={`list-group-item list-group-item-action d-flex flex-nowrap justify-content-between ${user.emailConfirmed && user.role !== "Mod" ? "list-group-item-warning" : ""}`}>
+        <Link to={`/users/${user.id}`} className={`list-group-item list-group-item-action d-flex flex-nowrap justify-content-between ${!user.emailConfirmed && user.role !== "Mod" ? "list-group-item-warning" : ""}`}>
             <h5>
                 {user.firstName} {user.lastName}
                 

@@ -9,6 +9,7 @@ import Moment from "moment";
 class UserForm extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props.user);
         this.state = {
             user: props.user === undefined ? {
                 firstName: "",
@@ -20,7 +21,8 @@ class UserForm extends React.Component {
                 customerId: "",
                 male: null,
                 female: null,
-                subscriptions: []
+                subscriptions: [],
+                emailConfirmed: false
             } : props.user
         };
 
@@ -96,7 +98,7 @@ class UserForm extends React.Component {
                     <label htmlFor="last-name">Achternaam</label>
                     <input className="form-control" type="text" id="last-name" required="required" name="lastName" value={this.state.user.lastName} onChange={this.handleChange} />
                 </div>
-                {this.props.newUser ?
+                {this.props.newUser || !this.state.user.emailConfirmed ?
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input className="form-control" type="email" id="email" required="required" name="email" value={this.state.user.email} onChange={this.handleChange} />
