@@ -19,6 +19,7 @@ namespace rowinpt.api.ViewModels
         public string Role { get; set; }
         public int RoleId { get; set; }
         public DateTime Startdate { get; set; }
+        public bool EmailConfirmed { get; set; }
 
         public List<int> Subscriptions { get; set; }
 
@@ -37,6 +38,7 @@ namespace rowinpt.api.ViewModels
                     .ToList(),
                 RoleId = user.Roles.Single().RoleId,
                 CustomerId = user.CustomerId,
+                EmailConfirmed = user.EmailConfirmed,
             };
         }
 
