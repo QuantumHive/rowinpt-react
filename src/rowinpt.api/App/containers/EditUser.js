@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 
 import _ from "lodash";
+import Axios from "axios";
 
 import * as Actions from "../actions/userActions";
 import * as Paths from "../constants/routePaths";
@@ -22,12 +23,21 @@ class EditUser extends React.Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleResendActivation = this.handleResendActivation.bind(this);
     }
 
     handleSubmit(user) {
         this.props.actions.editUser(user);
         this.setState({
             redirect: true
+        });
+    }
+
+    handleResendActivation(email) {
+        Axios.post("/api/account/resend/activation", email).then(() => {
+            this.setState({
+                redirect: true
+            });
         });
     }
 
@@ -42,7 +52,7 @@ class EditUser extends React.Component {
             return <Redirect to={Paths.Users} />;
         }
         const user = _.find(this.props.users, { id: parseInt(this.props.match.params.id) });
-        return <UserForm user={{...user}} submit="Opslaan" cache={this.props.cache} handleSubmit={this.handleSubmit} newUser={false} />;
+        return <UserForm user={{ ...user }} submit="Opslaan" cache={this.props.cache} handleSubmit={this.handleSubmit} handleResendActivation={this.handleResendActivation} newUser={false} />;
     }
 }
 

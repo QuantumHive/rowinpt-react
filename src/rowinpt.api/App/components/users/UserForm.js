@@ -9,7 +9,7 @@ import Moment from "moment";
 class UserForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props.user);
+
         this.state = {
             user: props.user === undefined ? {
                 firstName: "",
@@ -35,6 +35,7 @@ class UserForm extends React.Component {
         this.handleSubscriptionChange = this.handleSubscriptionChange.bind(this);
         this.handleBirthdate = this.handleBirthdate.bind(this);
         this.handleStartdate = this.handleStartdate.bind(this);
+        this.resendActivation = this.resendActivation.bind(this);
     }
 
     handleSubmit(event) {
@@ -44,7 +45,7 @@ class UserForm extends React.Component {
 
     handleBirthdate(date) {
         this.setState(prevState => {
-            var newState = { ...prevState};
+            var newState = { ...prevState };
             newState.user.birthdate = date;
             return newState;
         });
@@ -85,6 +86,10 @@ class UserForm extends React.Component {
             newState.user.subscriptions = subscriptions;
             return newState;
         });
+    }
+
+    resendActivation() {
+        this.props.handleResendActivation(this.state.user.email);
     }
 
     render() {
@@ -144,6 +149,10 @@ class UserForm extends React.Component {
                     handleChange={this.handleStartdate}
                     required={true} /> : false}
 
+                {this.props.newUser || !this.state.user.emailConfirmed ?
+                    <button type="button" className="btn btn-outline-warning btn-block btn-lg mt-4 mb-2" onClick={this.resendActivation}>Opnieuw activeren</button>
+                    : false}
+
                 <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4 mb-2">{this.props.submit}</button>
             </form>
         );
@@ -155,7 +164,8 @@ UserForm.propTypes = {
     submit: PropTypes.string.isRequired,
     cache: PropTypes.object.isRequired,
     newUser: PropTypes.bool.isRequired,
-    user: PropTypes.object
+    user: PropTypes.object,
+    handleResendActivation: PropTypes.func
 };
 
 export default UserForm;
