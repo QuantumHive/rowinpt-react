@@ -138,7 +138,7 @@ namespace rowinpt.api
         private async Task SendActivationMail(string email, User user)
         {
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-            var url = $@"https://rowinpt-api.azurewebsites.net/activate?id={user.Id}&code={WebUtility.UrlEncode(code)}";
+            var url = $@"https://rowinpt.azurewebsites.net/activate?id={user.Id}&code={WebUtility.UrlEncode(code)}";
             var message = new MailMessage
             {
                 ToAddress = email,
