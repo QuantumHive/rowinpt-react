@@ -15,6 +15,7 @@ import ScheduleConfirm from '../components/schedule/Confirm';
 import ScheduleCancel from '../components/schedule/Cancel';
 
 import _ from 'lodash';
+import moment from "moment";
 
 class Schedule extends React.Component {
     constructor(props) {
@@ -33,7 +34,11 @@ class Schedule extends React.Component {
             this.determineNextStepCallback(nextProps.routePath);
         }
         if (nextProps.routePath === paths.ScheduleConfirm) {
-            const existingAgenda = _.find(nextProps.agenda.items, { timetableId: nextProps.schedule.course, date: nextProps.schedule.date.format("Y-M-D") });
+            const existingAgenda = _.find(nextProps.agenda.items,
+                item => {
+                    return item.timetableId === nextProps.schedule.course &&
+                        moment(item.date).format("Y-M-D") === nextProps.schedule.date.format("Y-M-D");
+                });
             if (existingAgenda !== undefined) {
                 this.setState(prevState => {
                     return {

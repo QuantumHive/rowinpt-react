@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import StretchGrid from '../common/stretchgrid/StretchGrid';
-import CourseDateCard from './CourseDateCard';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from "react";
+import PropTypes from "prop-types";
+import StretchGrid from "../common/stretchgrid/StretchGrid";
+import CourseDateCard from "./CourseDateCard";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import * as actions from '../../actions/routeActions';
+import * as actions from "../../actions/routeActions";
 
-import moment from 'moment';
-import _ from 'lodash';
+import moment from "moment";
+import _ from "lodash";
 
 class CourseDate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            monday: moment().weekday(0)
+            monday: moment().startOf("day").weekday(0)
         };
         this.previousWeek = this.previousWeek.bind(this);
         this.nextWeek = this.nextWeek.bind(this);
@@ -35,7 +35,7 @@ class CourseDate extends React.Component {
     shiftWeek(direction) {
         this.setState(prevState => {
             return {
-                monday: prevState.monday.clone().add(7 * direction, 'd')
+                monday: prevState.monday.clone().add(7 * direction, "d")
             };
         });
     }
@@ -57,18 +57,18 @@ class CourseDate extends React.Component {
         const rows = [
             [
                 <CourseDateCard key="1" date={monday} step={nextStep} enabled={_.includes(days, 1)} cache={cache} schedule={schedule} />,
-                <CourseDateCard key="2" date={monday.clone().add(1, 'd')} step={nextStep} enabled={_.includes(days, 2)} cache={cache} schedule={schedule} />
+                <CourseDateCard key="2" date={monday.clone().add(1, "d")} step={nextStep} enabled={_.includes(days, 2)} cache={cache} schedule={schedule} />
             ],
             [
-                <CourseDateCard key="3" date={monday.clone().add(2, 'd')} step={nextStep} enabled={_.includes(days, 3)} cache={cache} schedule={schedule} />,
-                <CourseDateCard key="4" date={monday.clone().add(3, 'd')} step={nextStep} enabled={_.includes(days, 4)} cache={cache} schedule={schedule} />
+                <CourseDateCard key="3" date={monday.clone().add(2, "d")} step={nextStep} enabled={_.includes(days, 3)} cache={cache} schedule={schedule} />,
+                <CourseDateCard key="4" date={monday.clone().add(3, "d")} step={nextStep} enabled={_.includes(days, 4)} cache={cache} schedule={schedule} />
             ],
             [
-                <CourseDateCard key="5" date={monday.clone().add(4, 'd')} step={nextStep} enabled={_.includes(days, 5)} cache={cache} schedule={schedule} />,
-                <CourseDateCard key="6" date={monday.clone().add(5, 'd')} step={nextStep} enabled={_.includes(days, 6)} cache={cache} schedule={schedule} />
+                <CourseDateCard key="5" date={monday.clone().add(4, "d")} step={nextStep} enabled={_.includes(days, 5)} cache={cache} schedule={schedule} />,
+                <CourseDateCard key="6" date={monday.clone().add(5, "d")} step={nextStep} enabled={_.includes(days, 6)} cache={cache} schedule={schedule} />
             ],
             [
-                <CourseDateCard key="7" date={monday.clone().add(6, 'd')} step={nextStep} enabled={_.includes(days, 7)} cache={cache} schedule={schedule} />,
+                <CourseDateCard key="7" date={monday.clone().add(6, "d")} step={nextStep} enabled={_.includes(days, 7)} cache={cache} schedule={schedule} />,
                 <div key="8" />
             ],
         ];
