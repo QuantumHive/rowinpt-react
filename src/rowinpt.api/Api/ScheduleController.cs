@@ -96,7 +96,13 @@ namespace rowinpt.api
                 return BadRequest();
             }
 
-
+            if (await dbContext.Schedules.SingleOrDefaultAsync(s => s.UserId == currentUserId &&
+                                                                    s.TimetableId == scheduleViewModel.TimetableId &&
+                                                                    s.Date.Date == scheduleViewModel.Date.Date) != null)
+            {
+                //uh-oh, user is trying to send a schedule for the second time!
+                return BadRequest();
+            }
 
             var newSchedule = scheduleViewModel.ToEntity(currentUserId, timeTable);
             await dbContext.Schedules.AddAsync(newSchedule);
