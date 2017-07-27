@@ -30,6 +30,9 @@ class Schedule extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.redirect !== "") {
+            this.props.actions.resetRedirect();
+        }
         if (this.props.routePath !== nextProps.routePath) {
             this.determineNextStepCallback(nextProps.routePath);
         }
@@ -94,7 +97,6 @@ class Schedule extends React.Component {
 
     render() {
         if (this.props.redirect !== "") {
-            this.props.actions.resetRedirect();
             return <Redirect push to={this.props.redirect} />;
         }
         if (this.state.cancel) {

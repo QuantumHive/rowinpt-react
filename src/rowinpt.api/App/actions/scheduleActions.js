@@ -48,7 +48,7 @@ export function deleteScheduleSuccess(scheduleId){
 
 export function deleteSchedule(id){
     return dispatch => {
-        return AgendaApi.deleteAgenda(id).then(scheduleId => dispatch(deleteScheduleSuccess(scheduleId)));
+        return AgendaApi.deleteAgenda(id).then(() => dispatch(redirectTo(Paths.Agenda)));
     };
 }
 
