@@ -27,7 +27,7 @@ export default function dashboardReducer(state = { items: [], isLoading: false }
                         ...state.items.slice(0, index),
                         ...state.items.slice(index + 1)
                     ],
-                    isLoading: false,
+                    isLoading: false
                 };
             }
         default:

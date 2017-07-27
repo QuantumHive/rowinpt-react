@@ -86,17 +86,16 @@ class Schedule extends React.Component {
         const date = this.props.schedule.date;
         const id = this.props.schedule.course;
         this.props.actions.addSchedule(date, id);
-        this.setState({ redirect: true });
     }
 
     cancel(id) {
         this.props.actions.deleteSchedule(id);
-        this.setState({ redirect: true });
     }
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect push to={paths.Agenda} />;
+        if (this.props.redirect !== "") {
+            this.props.actions.resetRedirect();
+            return <Redirect push to={this.props.redirect} />;
         }
         if (this.state.cancel) {
             return <Redirect push to={this.state.cancel} />;
@@ -132,7 +131,8 @@ function mapStateToProps(state, ownProps) {
         schedule: state.schedule,
         routePath: ownProps.location.pathname,
         cache: state.cache,
-        agenda: state.agenda
+        agenda: state.agenda,
+        redirect: state.schedule.redirect,
     };
 }
 

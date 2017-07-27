@@ -102,7 +102,7 @@ namespace rowinpt.api
             await dbContext.Schedules.AddAsync(newSchedule);
             await dbContext.SaveChangesAsync();
 
-            return CreatedAtRoute("GetSchedule", new { id = newSchedule.Id }, ScheduleViewModel.Map(newSchedule));
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
