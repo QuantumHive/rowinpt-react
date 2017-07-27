@@ -96,6 +96,8 @@ namespace rowinpt.api
                 return BadRequest();
             }
 
+
+
             var newSchedule = scheduleViewModel.ToEntity(currentUserId, timeTable);
             await dbContext.Schedules.AddAsync(newSchedule);
             await dbContext.SaveChangesAsync();

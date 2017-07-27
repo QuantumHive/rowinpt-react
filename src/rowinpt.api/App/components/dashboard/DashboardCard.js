@@ -6,7 +6,7 @@ import moment from "moment";
 import * as paths from "../../constants/routePaths";
 
 function DashboardCard({ schedule }) {
-    const date = moment(schedule.date, "Y-M-D");
+    const date = moment(schedule.date);
     return (
         <Link to={`${paths.ScheduleCancel}/${schedule.id}/${date.format("D-M-Y")}`} className="list-group-item list-group-item-action d-flex flex-column align-items-start flex-nowrap">
             <div className="d-flex flex-row flex-nowrap">
