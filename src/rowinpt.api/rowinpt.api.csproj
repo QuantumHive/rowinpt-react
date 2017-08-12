@@ -6,11 +6,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <None Remove="Properties\PublishProfiles\rowinpt-api - FTP.pubxml" />
-    <None Remove="Properties\PublishProfiles\rowinpt-api - Web Deploy.pubxml" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="1.1.2" />
@@ -38,10 +33,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
   
@@ -51,6 +42,10 @@
   
   <ItemGroup>
     <Content Include="wwwroot\rowinpt_logo_re_website_36.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\rowinpt - Web Deploy.pubxml.user" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

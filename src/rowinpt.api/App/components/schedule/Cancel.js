@@ -22,7 +22,7 @@ function Cancel({agenda, cache, cancel, match }) {
     };
 
     const courseDate = Moment(match.params.date + " " + timetable.start, "D-M-Y hh:mm");
-    const disable = Moment().add(24, "h").isAfter(courseDate);
+    const disable = Moment().add(1, "h").isAfter(courseDate);
 
     return (
         <div className="col text-center pt-3">
