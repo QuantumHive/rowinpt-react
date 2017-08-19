@@ -117,7 +117,7 @@ namespace rowinpt.api
             var schedule = await dbContext.Schedules.Include(s => s.Timetable).SingleAsync(s => s.Id == id);
             var limit = schedule.Date.Add(schedule.Timetable.StartTime);
 
-            if (DateTime.Now.AddHours(24) >= limit)
+            if (DateTime.Now.AddHours(1) >= limit)
             {
                 return BadRequest();
             }
