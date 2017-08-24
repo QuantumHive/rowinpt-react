@@ -1,14 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using rowinpt.api.Constants;
 using rowinpt.api.Models;
 using rowinpt.api.Options;
 using rowinpt.api.Services;
@@ -69,10 +68,20 @@ namespace rowinpt.api
             services.AddCors();
             services.AddMvc();
 
-            services.AddIdentity<User, IdentityRole<int>>();
             services.AddIdentityStores<User, IdentityRole<int>>();
 
             services.AddDbContext<RowinContext>(options => options.UseSqlServer(configuration.GetConnectionString("RowinPT")));
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromDays(150);
+                options.Cookie.Name = ".AspNetCore.Cookies.RowinPT";
+            });
+
+            //services.Configure<DataProtectionTokenProviderOptions>(options =>
+            //{
+            //    options.TokenLifespan = TimeSpan.FromDays(7);
+            //});
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -85,13 +94,6 @@ namespace rowinpt.api
 
                 // Lockout settings
                 options.Lockout.AllowedForNewUsers = false;
-
-                // Cookie settings
-                options.Cookies.ApplicationCookie.AuthenticationScheme = Scheme.Authentication;
-                options.Cookies.ApplicationCookie.CookieName = ".AspNetCore.Cookies.RowinPT";
-                options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
-                options.Cookies.ApplicationCookie.AutomaticAuthenticate = true;
-                options.Cookies.ApplicationCookie.AutomaticChallenge = false;
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
@@ -134,7 +136,7 @@ namespace rowinpt.api
             //    rowinContext.EnsureSeed().Wait();
             //}
 
-            app.UseIdentity();
+            app.UseAuthentication();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {

@@ -4,7 +4,6 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rowinpt.api.Constants;
@@ -15,8 +14,7 @@ using rowinpt.api.ViewModels;
 namespace rowinpt.api
 {
     [Route("api/users")]
-    //returns 404 if unauthorized, see: https://github.com/aspnet/Security/issues/967
-    [Authorize(Roles = Role.Admin, ActiveAuthenticationSchemes = Scheme.Authentication)]
+    [Authorize(Roles = Roles.Admin)]
     public class UserController : Controller
     {
         private readonly RowinContext dbContext;
@@ -42,7 +40,7 @@ namespace rowinpt.api
                 from user in dbContext.Users.Include(u => u.Roles)
                 join userRole in dbContext.UserRoles on user.Id equals userRole.UserId
                 join role in dbContext.Roles on userRole.RoleId equals role.Id
-                where role.Name != Role.Admin
+                where role.Name != Roles.Admin
                 select user;
 
             var users = await nonAdminUsers.Include(user => user.UserSubscriptions).ToListAsync();
@@ -55,13 +53,6 @@ namespace rowinpt.api
             return mappedUsers;
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var user = await dbContext.Users.Include(u => u.UserSubscriptions).SingleAsync(u => u.Id == id);
-            return new ObjectResult(UserViewModel.Map(user));
-        }
-
         [HttpPost]
         public async Task<IActionResult> New([FromBody]UserViewModel userViewModel)
         {
@@ -71,7 +62,7 @@ namespace rowinpt.api
             var result = await userManager.CreateAsync(user);
             if (result == IdentityResult.Success)
             {
-                await userManager.AddToRoleAsync(user, Role.User);
+                await userManager.AddToRoleAsync(user, Roles.User);
 
                 await SendActivationMail(userViewModel.Email, user);
 

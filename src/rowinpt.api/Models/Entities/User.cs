@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace rowinpt.api.Models
 {
@@ -16,5 +16,7 @@ namespace rowinpt.api.Models
         public List<UserSubscription> UserSubscriptions { get; set; }
         public List<Schedule> Schedules { get; set; }
         public List<Timetable> Timetables { get; set; }
+
+        public virtual ICollection<IdentityUserRole<int>> Roles { get; } = new List<IdentityUserRole<int>>();
     }
 }

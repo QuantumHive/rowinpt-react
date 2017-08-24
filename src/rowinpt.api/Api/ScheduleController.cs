@@ -13,8 +13,7 @@ using rowinpt.api.ViewModels;
 namespace rowinpt.api
 {
     [Route("api/schedules")]
-    //returns 404 if unauthorized, see: https://github.com/aspnet/Security/issues/967
-    [Authorize(Roles = Role.Admin + "," + Role.User + "," + Role.Mod, ActiveAuthenticationSchemes = Scheme.Authentication)]
+    [Authorize(Roles = Roles.Admin + "," + Roles.User + "," + Roles.Mod)]
     public class ScheduleController : Controller
     {
         private readonly IHttpContextAccessor contextAccessor;
@@ -129,7 +128,7 @@ namespace rowinpt.api
         }
 
         [HttpGet("getwork")]
-        [Authorize(Roles = Role.Admin + "," + Role.Mod, ActiveAuthenticationSchemes = Scheme.Authentication)]
+        [Authorize(Roles = Roles.Admin + "," + Roles.Mod)]
         public async Task<IEnumerable<WorkViewModel>> GetWork()
         {
             var now = DateTime.Now.Date;

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace rowinpt.api.Models
 {
@@ -30,6 +29,13 @@ namespace rowinpt.api.Models
             builder.Property(u => u.Sex);
 
             builder.HasMany(u => u.Schedules).WithOne(s => s.User).HasForeignKey(s => s.UserId).OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(e => e.Roles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private static void ConfigureLocation(this ModelBuilder modelBuilder)
