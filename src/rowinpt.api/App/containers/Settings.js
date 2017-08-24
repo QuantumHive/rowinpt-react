@@ -2,8 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import * as paths from '../constants/routePaths';
 import * as actions from '../actions/authenticationActions';
 import * as routeActions from '../actions/routeActions';
@@ -40,7 +39,7 @@ class Settings extends React.Component {
                     </div>
                 );
             }
-            <Redirect push to={paths.default} />;
+            return <Redirect push to={paths.default} />;
         }
         return (
             <div />

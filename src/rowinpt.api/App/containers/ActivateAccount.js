@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { withRouter } from "react-router-dom";
-import {Redirect} from "react-router";
+import { Redirect, withRouter } from "react-router-dom";
 import QueryString from "query-string";
 import * as actions from "../actions/authenticationActions";
 
