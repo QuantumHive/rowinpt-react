@@ -78,10 +78,10 @@ namespace rowinpt.api
                 options.Cookie.Name = ".AspNetCore.Cookies.RowinPT";
             });
 
-            //services.Configure<DataProtectionTokenProviderOptions>(options =>
-            //{
-            //    options.TokenLifespan = TimeSpan.FromDays(7);
-            //});
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromDays(7);
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
