@@ -80,7 +80,7 @@ namespace rowinpt.api
 
             services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
-                options.TokenLifespan = TimeSpan.FromDays(7);
+                options.TokenLifespan = TimeSpan.FromDays(180);
             });
 
             services.Configure<IdentityOptions>(options =>
