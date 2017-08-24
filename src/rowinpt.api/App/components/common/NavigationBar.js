@@ -28,8 +28,8 @@ function NavigationBar(props) {
         </li>
     );
     return (
-        <nav className="navbar navbar-light bg-faded">
-            <ul className="navbar-nav bg-faded nav-justified flex-row">
+        <nav className="navbar navbar-light bg-light">
+            <ul className="navbar-nav w-100 nav-justified flex-row">
                 {work}
                 {dashboard}
                 {/*{profile}*/}
