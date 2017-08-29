@@ -155,7 +155,7 @@ class UserForm extends React.Component {
                     handleChange={this.handleStartdate}
                     required={true} /> : false}
 
-                {this.props.newUser || !this.state.user.emailConfirmed ?
+                {!this.props.newUser && !this.state.user.emailConfirmed ?
                     <button type="button" className="btn btn-outline-warning btn-block btn-lg mt-4 mb-2" onClick={this.resendActivation} disabled={this.state.isDirty}>Opnieuw activeren</button>
                     : false}
 
