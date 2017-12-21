@@ -12,5 +12,6 @@ namespace rowinpt.api.ViewModels
         public string Moderator { get; set; }
         public List<string> RegisteredUsers { get; set; }
         public string Date { get; set; }
+        public int LocationId { get; set; }
     }
 }

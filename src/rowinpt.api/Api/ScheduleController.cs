@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +20,13 @@ namespace rowinpt.api
     {
         private readonly IHttpContextAccessor contextAccessor;
         private readonly RowinContext dbContext;
+        private readonly TelemetryClient telemetryClient;
 
         public ScheduleController(IHttpContextAccessor contextAccessor, RowinContext dbContext)
         {
             this.contextAccessor = contextAccessor;
             this.dbContext = dbContext;
+            telemetryClient = new TelemetryClient();
         }
 
         [HttpGet]
@@ -75,9 +79,16 @@ namespace rowinpt.api
                                 s.Date.Date == scheduleViewModel.Date.Date)
                     .CountAsync();
 
+            var meta = new Dictionary<string, string>
+            {
+                {"user id", currentUserId.ToString()},
+                {"timetable id", scheduleViewModel.TimetableId.ToString()},
+                {"date", scheduleViewModel.Date.ToShortDateString() }
+            };
+
             if (alreadySubscribedSchedules >= timeTable.Course.Capacity)
             {
-                //uh-oh, the course has reached it's capacity
+                telemetryClient.TrackTrace("Course has reached it's capacity", SeverityLevel.Warning, meta);
                 return BadRequest();
             }
 
@@ -85,13 +96,13 @@ namespace rowinpt.api
             var user = await dbContext.Users
                 .Include(u => u.UserCourseTypes)
                 .Include(u => u.UserSubscriptions)
-                .Include(u => u.UserSubscriptions)
                 .ThenInclude(us => us.Subscription)
                 .SingleAsync(u => u.Id == currentUserId);
 
             if (user.UserCourseTypes.All(uc => uc.CourseTypeId != courseTypeId))
             {
-                //uh-oh, user does not have any subscriptions for this coursetype!
+                telemetryClient.TrackTrace("User does not have any subscriptions for this coursetype",
+                    SeverityLevel.Warning, meta);
                 return BadRequest();
             }
 
@@ -99,7 +110,19 @@ namespace rowinpt.api
                                                                     s.TimetableId == scheduleViewModel.TimetableId &&
                                                                     s.Date.Date == scheduleViewModel.Date.Date) != null)
             {
-                //uh-oh, user is trying to send a schedule for the second time!
+                telemetryClient.TrackTrace("User is trying to send a schedule for the second time",
+                    SeverityLevel.Warning, meta);
+                return BadRequest();
+            }
+
+            var count = dbContext.Schedules.Count(s => s.UserId == currentUserId && s.Date >= DateTime.Today);
+            var subscription = user.UserSubscriptions.Single(us => us.Subscription.CourseTypeId == courseTypeId);
+            var type = (int) subscription.Subscription.Type;
+            if (type != 0 && count >= type * 4)
+            {
+                meta.Add("schedules count", count.ToString());
+                telemetryClient.TrackTrace("User has reached it's maximum capacity for the coming 4 weeks",
+                    SeverityLevel.Warning, meta);
                 return BadRequest();
             }
 
@@ -147,7 +170,7 @@ namespace rowinpt.api
                 group schedule.User by new {schedule.Date, schedule.Timetable,}
                 into schedules
                 let timetable = schedules.Key.Timetable
-                orderby schedules.Key.Date, timetable.StartTime
+                orderby schedules.Key.Date, timetable.LocationId, timetable.StartTime
                 let users =
                     from userSchedule in schedules
                     select userSchedule.FirstName + " " + userSchedule.LastName
@@ -160,6 +183,7 @@ namespace rowinpt.api
                     Moderator = timetable.User.FirstName,
                     Course = timetable.Course.Name,
                     Location = timetable.Location.Name,
+                    LocationId = timetable.LocationId
                 };
 
             return work.ToList();

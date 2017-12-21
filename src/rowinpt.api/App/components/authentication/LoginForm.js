@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const emailInputStyle = {
     borderBottomRightRadius: 0,
@@ -43,14 +44,19 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <form className="col align-self-center pt-5" autoComplete="off" onSubmit={this.handleLogin} style={{ maxWidth: "300px" }}>
-                <h3 className="mb-4" style={{ fontWeight: "normal" }}>RowinPT</h3>
+            <div className="col align-items-center pt-5">
+                <form className="mb-3" autoComplete="off" onSubmit={this.handleLogin} style={{ maxWidth: "300px" }}>
+                    <h3 className="mb-4" style={{ fontWeight: "normal" }}>RowinPT</h3>
 
-                <input type="email" className="form-control" placeholder="Email" required="required" name="email" style={emailInputStyle} onChange={this.handleInputChange} />
-                <input type="password" className="form-control" placeholder="Wachtwoord" required="required" name="password" style={passwordInputStyle} onChange={this.handleInputChange} />
+                    <input type="email" className="form-control" placeholder="Email" required="required" name="email" style={emailInputStyle} onChange={this.handleInputChange} />
+                    <input type="password" className="form-control" placeholder="Wachtwoord" required="required" name="password" style={passwordInputStyle} onChange={this.handleInputChange} />
 
-                <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4">Inloggen</button>
-            </form>
+                    <button type="submit" className="btn btn-outline-success btn-block btn-lg mt-4">Inloggen</button>
+                </form>
+
+                <Link to="/forgot">Wachtwoord vergeten?</Link>
+            </div>
+                
         );
     }
 

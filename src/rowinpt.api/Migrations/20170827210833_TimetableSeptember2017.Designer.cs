@@ -11,9 +11,10 @@ using System;
 namespace rowinpt.api.Migrations
 {
     [DbContext(typeof(RowinContext))]
-    partial class RowinContextModelSnapshot : ModelSnapshot
+    [Migration("20170827210833_TimetableSeptember2017")]
+    partial class TimetableSeptember2017
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

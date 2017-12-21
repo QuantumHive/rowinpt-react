@@ -13,6 +13,8 @@ import Settings from '../../containers/Settings';
 import Agenda from '../../containers/Agenda';
 import Schedule from '../../containers/Schedule';
 import ModList from '../users/ModList';
+import ChangePassword from "../../containers/ChangePassword";
+import MailList from "../../containers/MailList";
 
 function Routes(props) {
     return (
@@ -45,6 +47,8 @@ function Routes(props) {
             }
             
             <Route exact path={paths.Settings} component={Settings} />
+            <Route exact path="/settings/password/change" component={ChangePassword} />
+            <Route exact path="/settings/absentlist" component={MailList} />
         </Switch>);
 }
 

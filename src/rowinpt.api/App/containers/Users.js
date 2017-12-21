@@ -56,7 +56,19 @@ class Users extends React.Component {
                             {
                                 _.orderBy(this.props.users, ["role", "firstName", "lastName"]).map(user => {
                                     const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
-                                    if (fullName.indexOf(filter) === -1) return;
+
+                                    if (filter !== "") {
+                                        let skip = true;
+
+                                        if (fullName.includes(filter)) skip = false;
+                                        if (skip &&
+                                            user.customerId !== null &&
+                                            user.customerId.toString().includes(filter)) skip = false;
+
+                                        if (skip) return;
+                                    }
+
+                                    if (filter !== "" && (!fullName.includes(filter) && (user.customerId == null))) return;
                                     return <UserRow key={user.id} user={user} />;
                                 })
                             }

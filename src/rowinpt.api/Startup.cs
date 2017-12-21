@@ -65,6 +65,8 @@ namespace rowinpt.api
                 services.AddSingleton<IEmailService, ApplicationInsightsMailService>();
             }
 
+            services.AddSingleton<ICsvWriter, CsvWriterService>();
+
             services.AddCors();
             services.AddMvc();
 

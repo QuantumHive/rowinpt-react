@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,16 +23,88 @@ namespace rowinpt.api
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole<int>> roleManager;
         private readonly IEmailService emailService;
+        private readonly TelemetryClient telemetryClient;
+        private readonly ICsvWriter csvWriter;
 
         public UserController(
             RowinContext dbContext,
             UserManager<User> userManager,
-            IEmailService emailService, RoleManager<IdentityRole<int>> roleManager)
+            IEmailService emailService, RoleManager<IdentityRole<int>> roleManager,
+            ICsvWriter csvWriter)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.emailService = emailService;
             this.roleManager = roleManager;
+            this.csvWriter = csvWriter;
+            telemetryClient = new TelemetryClient();
+        }
+
+        [HttpGet("maillist/download/{locationId}")]
+        public IActionResult Download(int locationId)
+        {
+            var users =
+                from user in dbContext.Users.Include(u => u.Roles).Include(u => u.UserSubscriptions)
+                where user.EmailConfirmed
+                join userRole in dbContext.UserRoles on user.Id equals userRole.UserId
+                join role in dbContext.Roles on userRole.RoleId equals role.Id
+                where role.Name == Roles.User
+                select user;
+
+            var threshold = DateTime.Today.AddDays(-14);
+
+            var absentUsers =
+                from user in users.Include(u => u.Schedules).ThenInclude(s => s.Timetable).ThenInclude(t => t.Course)
+                where !user.Schedules.Any(s => s.Date > threshold)
+                where user.Schedules.Any(s => s.Timetable.LocationId == locationId)
+                let lastTime = (
+                    from schedule in user.Schedules
+                    where schedule.Timetable.LocationId == locationId
+                    orderby schedule.Date descending
+                    select schedule).FirstOrDefault()
+                let userSubs =
+                    from sub in user.UserSubscriptions
+                    select sub.Subscription.CourseType.Name
+                let typesPastTwoWeeks = (
+                    from schedule in user.Schedules
+                    where schedule.Timetable.LocationId == locationId
+                    where schedule.Date > threshold
+                    select schedule.Timetable.Course.CourseType.Name).Distinct()
+                let courseTypes = userSubs.Except(typesPastTwoWeeks)
+                select new
+                {
+                    Voornaam = user.FirstName,
+                    Achternaam = user.LastName,
+                    Telefoon = user.PhoneNumber,
+                    user.Email,
+                    LaatsteKeer = lastTime == null ? string.Empty : lastTime.Date.ToString("dd-MM-yyyy"),
+                    Begeleidingsvormen = string.Join(", ", courseTypes)
+                };
+
+            var bytes = csvWriter.WriteRecords(absentUsers);
+            return File(bytes, "text/csv", "afwezigen.csv");
+        }
+
+        [HttpGet("maillist")]
+        public async Task<IEnumerable<UserViewModel>> MailList()
+        {
+            var users =
+                from user in dbContext.Users.Include(u => u.Roles).Include(u => u.UserSubscriptions)
+                where user.EmailConfirmed
+                join userRole in dbContext.UserRoles on user.Id equals userRole.UserId
+                join role in dbContext.Roles on userRole.RoleId equals role.Id
+                where role.Name == Roles.User
+                select user;
+
+            var threshold = DateTime.Today.AddDays(-14);
+
+            var absentUsers =
+                from user in users.Include(u => u.Schedules)
+                where !user.Schedules.Any(s => s.Date > threshold)
+                select user;
+
+            var result = await absentUsers.ToListAsync();
+            return result.Select(UserViewModel.Map);
         }
 
         [HttpGet]
@@ -129,7 +203,17 @@ namespace rowinpt.api
         private async Task SendActivationMail(string email, User user)
         {
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-            var url = $@"https://rowinpt.azurewebsites.net/activate?id={user.Id}&code={WebUtility.UrlEncode(code)}";
+            var urlEncode = WebUtility.UrlEncode(code);
+            var url = $@"https://rowinpt.azurewebsites.net/activate?id={user.Id}&code={urlEncode}";
+
+            telemetryClient.TrackEvent("SendActivationMail", new Dictionary<string, string>
+            {
+                {"email", email},
+                {"code", code },
+                {"url", url },
+                {"urlEncode", urlEncode }
+            });
+
             var message = new MailMessage
             {
                 ToAddress = email,

@@ -6,6 +6,7 @@ namespace rowinpt.api.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
 
         public List<UserCourseType> UserCourseTypes { get; set; }
         public List<Subscription> Subscriptions { get; set; }

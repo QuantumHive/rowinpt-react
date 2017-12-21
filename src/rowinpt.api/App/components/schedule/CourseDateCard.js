@@ -16,7 +16,7 @@ const style = {
 
 function CourseDateCard({ date, step, enabled, cache, schedule }) {
     const today = moment();
-    const max = today.clone().add(5, 'w');
+    const max = schedule.courseType === 1 ? moment("2017-08-31", "YYYY-MM-DD") : today.clone().add(5, 'w');
 
     let coursesLeft = true;
     if(today.isSame(date, 'd')){
@@ -30,6 +30,11 @@ function CourseDateCard({ date, step, enabled, cache, schedule }) {
             coursesLeft = false;
         }
     }
+
+    if (schedule.courseType === 5) {
+        enabled = enabled && date.isSameOrAfter(moment("2017-09-01", "YYYY-MM-DD"), "d");
+    }
+    
 
     const content = (
         <span>

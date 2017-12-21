@@ -14,6 +14,8 @@ import CommandBar from "./common/CommandBar";
 import LoginForm from "./authentication/LoginForm";
 import ActivateAccount from "../containers/ActivateAccount";
 import Spinner from "react-spinkit";
+import ForgotPassword from "./authentication/ForgotPassword";
+import ResetPassword from "./authentication/ResetPassword";
 
 class App extends React.Component {
     constructor(props) {
@@ -54,12 +56,14 @@ class App extends React.Component {
                     </Main>
                 );
             }
-            if(this.props.routePath.split("/")[1] !== Paths.Activate.split("/")[1] && this.props.routePath !== Paths.default){
+            if(this.props.routePath.split("/")[1] !== Paths.Activate.split("/")[1] && this.props.routePath !== Paths.default && this.props.routePath !== "/forgot" && this.props.routePath.split("/")[1] !== "reset"){
                 return <Redirect to={Paths.default} />;
             }
             return (
                 <Main>
                     <Switch>
+                        <Route path="/reset" component={ResetPassword} />
+                        <Route exact path="/forgot" component={ForgotPassword} />
                         <Route path={Paths.Activate} component={ActivateAccount} />
                         <Route path={Paths.default} render={() => <LoginForm handleLogin={this.handleLogin} />} />
                     </Switch>
@@ -114,7 +118,7 @@ function mapDispatchToProps(dispatch) {
     return {
         routeActions: bindActionCreators(RouteActions, dispatch),
         cacheActions: bindActionCreators(CacheActions, dispatch),
-        authenticationActions: bindActionCreators(AuthenticationActions, dispatch)
+        authenticationActions: bindActionCreators(AuthenticationActions, dispatch),
     };
 }
 

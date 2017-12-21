@@ -5,11 +5,24 @@ import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import Moment from "moment";
 import * as actions from "../actions/workActions";
+import * as cacheActions from "../actions/cacheActions";
+import * as filterActions from "../actions/filterActions";
 import Spinner from "react-spinkit";
 
 class Agenda extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.locationChange = this.locationChange.bind(this);
+
+    }
     componentDidMount() {
         this.props.actions.loadWork();
+    }
+
+    locationChange(event) {
+        const value = parseInt(event.target.value);
+        this.props.changeFilter(value);
     }
 
     render() {
@@ -31,11 +44,26 @@ class Agenda extends React.Component {
         }
 
         return (
-            <div className="col p-0 d-flex">
+            <div className="col p-0">
                 <div className="col p-0">
+
+                    <div className="form-group my-2 text-center">
+                        <select className="custom-select" value={this.props.locationId} onChange={this.locationChange}>
+                            <option key={0} value={0}>Alle locaties</option>
+                            {this.props.locations.map(location => {
+                                return (
+                                    <option key={location.id} value={location.id}>{location.location}</option>
+                                );
+                            })}
+                        </select>
+                    </div>
+
                     <div className="list-group">
                         {
                             this.props.work.items.map((work, i) => {
+                                if (this.props.locationId !== 0) {
+                                    if (this.props.locationId !== work.locationId) return false;
+                                }
                                 return (
                                     <Link key={i} to={"/modlist/" + i} className="list-group-item list-group-item-action d-flex flex-nowrap justify-content-between py-2 pl-3 pr-0">
                                         <div className="d-flex flex-column align-items-start flex-nowrap">
@@ -55,7 +83,7 @@ class Agenda extends React.Component {
 
                                             </div>
                                         </div>
-                                        <div className="badge badge-pill badge-default mr-5">
+                                        <div className="badge badge-pill badge-secondary mr-5 align-self-center">
                                             {work.registeredUsers.length}
                                         </div>
                                     </Link>
@@ -78,13 +106,17 @@ Agenda.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        work: state.work
+        work: state.work,
+        locations: state.cache === null ? [] : state.cache.locations,
+        locationId: state.agendaFilter.locationId
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(actions, dispatch),
+        loadCache: dispatch(cacheActions.loadCache()),
+        changeFilter: locationId => dispatch(filterActions.filterLocation(locationId))
     };
 }
 

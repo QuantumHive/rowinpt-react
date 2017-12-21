@@ -6,6 +6,8 @@ import agenda from "./dashboardReducer";
 import work from "./workReducer";
 import users from "./usersReducer";
 import authenticationContext from "./authenticationReducer";
+import changePassword from "./passwordChangeReducer";
+import agendaFilter from "./agendaFilterReducer";
 
 const rootReducer = combineReducers({
     command: navigation,
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
     agenda,
     users,
     authenticationContext,
-    work
+    work,
+    changePassword,
+    agendaFilter
 });
 
  export default rootReducer;

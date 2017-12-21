@@ -21,7 +21,7 @@ namespace rowinpt.api
         [HttpGet]
         public async Task<IEnumerable<CourseTypeViewModel>> Get()
         {
-            var courseTypes = await dbContext.CourseTypes.ToListAsync();
+            var courseTypes = await dbContext.CourseTypes.Where(c => c.Active).ToListAsync();
             return courseTypes.Select(CourseTypeViewModel.Map);
         }
     }
